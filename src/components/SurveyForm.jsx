@@ -1,5 +1,6 @@
 import React from 'react'
 import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
+import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
 const SurveyForm = () => {
 const SurveyData=[
   {
@@ -37,13 +38,13 @@ const SurveyData=[
     id:6,
     question:"Please Select Your Course",
     type:"select",
-    options:["B.Tech","M.Tech","MBA","BBA","BCA","MCA"],
+    options:["B.Tech","M.Tech","MBA","BCA","MCA"],
     required:true
   },{
     id:7,
     question:'Please Select Your Branch Name/ Department Name',
     type:"select",
-    options:["CSE","ECE","EEE","IT","CS-AI/ML","CS-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity","CS-CloudComputing","CS-FullStack","CS-BlockChain",
+    options:["CSE","ECE","EEE","IT","CSE-AI/ML","CSE-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity","CS-CloudComputing","CS-FullStack","CS-BlockChain",
      "ME","Civil Engineering","Bio-Technology","Chemical Engineering","BPharmacy","Biomedical Engineering","Material Engineering","Aerospace Engineering"],
     required:true
   },{
@@ -66,13 +67,16 @@ const SurveyData=[
      <div className='max-w-7xl mx-auto'>
      
       <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
-       <h1 className='text-3xl font-bold text-center my-5'>Student Form</h1>
-       <p className="text-lg text-indigo-600">We value your opinion</p>
-      {/* <img src={}/> */}
-      <h1 className='p-4 bg-indigo-500 w-full text-white'>Welcome I am Your Ai Agent </h1>
-      <div className='p-4 bg-gray-200 w-full text-black my-3 rounded-lg'>Hello! I'm here to assist you with your survey. Please fill out the form below with your details and any questions or comments you may have. Your feedback is important to us!</div>
+       {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
+       {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
+
+
+      <h1 className='p-4 bg-indigo-500 w-full text-white font-bold text-3xl'> <img src={Survey} alt="Survey" className='w-8 h-8  my-3 rounded-lg flex items-center' />Student Survey Form </h1>
+
+      {/* <h1 className='p-4 bg-indigo-500 w-full text-white'>Welcome I am Your Ai Agent </h1> */}
+      {/* <div className='p-4 bg-gray-200 w-full text-black my-3 rounded-lg'>Hello! I'm here to assist you with your survey. Please fill out the form below with your details and any questions or comments you may have. Your feedback is important to us!</div> */}
       <div className='flex flex-row gap-2 md:flex'>
-      <input type="text" placeholder='Type Your Message....' className='w-full border p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '/>
+      <input type="text" placeholder='Type Your Message....' className='w-full border p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
       <button className='bg-indigo-500 text-white p-4 my-3 rounded-lg mt-2 hover:bg-indigo-600 inline-flex items-center gap-1'>Submit <img src={Send} alt="Send" className='inline-flex  w-4 h-4 ' /></button>
       </div>
       </div>
