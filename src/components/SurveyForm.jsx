@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
 import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
 import Robot from '../assets/images/Body/robot-svgrepo-com.svg';
@@ -102,8 +102,14 @@ if(currentQuestionIndex<SurveyData.length-1){
 }
 
 
-
 }
+useEffect(()=>{
+  if(currentQuestionIndex===0){
+    setMessagesHistory([{question:SurveyData[0].question, answer:""}]);
+    setCurrentQuestionIndex(1)
+  }
+},[])
+
 
 
 
@@ -125,9 +131,11 @@ if(currentQuestionIndex<SurveyData.length-1){
       <div className='space-y-4 mb-4'>
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
-            <div className='font-bold p-2 bg-indigo-200 rounded'><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}</div>
-            <div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div>
-            <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
+            <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}</div>
+            {/* <div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div> */}
+            {chat.answer && (
+              <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
+            )}
           </div>
         ))}
       </div>
