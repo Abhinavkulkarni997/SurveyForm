@@ -1,7 +1,9 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
 import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
 const SurveyForm = () => {
+  const [messages,setmessages]=useState([]);
+
 const SurveyData=[
   {
     id:1,
@@ -38,20 +40,23 @@ const SurveyData=[
     id:6,
     question:"Please Select Your Course",
     type:"select",
-    options:["B.Tech","M.Tech","MBA","BCA","MCA"],
+    options:["B.Tech","M.Tech","BCA","MCA"],
     required:true
   },{
     id:7,
     question:'Please Select Your Branch Name/ Department Name',
     type:"select",
-    options:["CSE","ECE","EEE","IT","CSE-AI/ML","CSE-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity","CS-CloudComputing","CS-FullStack","CS-BlockChain",
-     "ME","Civil Engineering","Bio-Technology","Chemical Engineering","BPharmacy","Biomedical Engineering","Material Engineering","Aerospace Engineering"],
+    options:["CSE","ECE","EEE","IT","CSE-AI/ML","CSE-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity",
+      "CS-CloudComputing","CS-BlockChain","ME","Mechanical Engineering (Mechatronics)","Digital Electronics and Communication Engineering",
+      "Power Electronics and Electrical Drives","Computer Aided Structural Engineering","Metallurgical and Materials Engineering",
+     "Civil Engineering","Bio-Technology","Chemical Engineering","BPharmacy","Biomedical Engineering","Material Engineering","Aerospace Engineering"],
     required:true
   },{
     id:8,
     question:'What is your Area of Interest?',
     type:"select",
-    options:["Natural Language Processing","Generative AI","Data Science","Computational Learning Theory","Machine Learning","Artificial Intelligence","Cloud Computing","AI/ML-Cyber Security","Internet of Things (IoT)"],
+    options:["Natural Language Processing","Generative AI","Data Science","Computational Learning Theory","Machine Learning",
+      "Artificial Intelligence","Cloud Computing","AI/ML-Cyber Security","Internet of Things (IoT)"],
     required:true
   },{
     id:9,
@@ -70,8 +75,11 @@ const SurveyData=[
        {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
        {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
 
-
-      <h1 className='p-4 bg-indigo-500 w-full text-white font-bold text-3xl'> <img src={Survey} alt="Survey" className='w-8 h-8  my-3 rounded-lg flex items-center' />Student Survey Form </h1>
+        <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
+      <img src={Survey} alt="Survey" className='w-8 h-8  my-3 ml-2 rounded-lg flex items-center ' />
+      <h1 className='p-4  w-full text-white font-bold text-3xl'> Student Survey Form </h1>
+      
+      </div>
 
       {/* <h1 className='p-4 bg-indigo-500 w-full text-white'>Welcome I am Your Ai Agent </h1> */}
       {/* <div className='p-4 bg-gray-200 w-full text-black my-3 rounded-lg'>Hello! I'm here to assist you with your survey. Please fill out the form below with your details and any questions or comments you may have. Your feedback is important to us!</div> */}
