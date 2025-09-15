@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
 import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
 import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
-const SurveyForm = () => {
-  const [messages,setmessages]=useState([]);
+
 
 const SurveyData=[
   {
@@ -66,6 +65,23 @@ const SurveyData=[
     required:true
   }
 ]
+const SurveyForm = () => {
+  const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0);
+  const [formData,setFormData]=useState({});
+  const [messageHistory,setMessagesHistory]=useState([]);
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  
+
+  setFormData({...formData,
+    [SurveyData[currentQuestionIndex].id]:e.target.value
+  })
+
+}
+
+
+
 
   return (
     <section className='min-h-screen  py-12 px-4 sm:px-6 lg:px-8 '>
@@ -76,8 +92,8 @@ const SurveyData=[
        {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
 
         <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
-      <img src={Survey} alt="Survey" className='w-8 h-8  my-3 ml-2 rounded-lg flex items-center ' />
-      <h1 className='p-4  w-full text-white font-bold text-3xl'> Student Survey Form </h1>
+      <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
+      <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
       
       </div>
 
