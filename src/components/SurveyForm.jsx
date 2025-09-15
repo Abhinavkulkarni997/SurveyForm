@@ -125,8 +125,8 @@ if(currentQuestionIndex<SurveyData.length-1){
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
             <div className='font-bold p-2 bg-indigo-200 rounded'><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}</div>
-            <div className='bg-indigo-100 p-2 rounded'>{chat.options}</div>
-            <div className='font-bold p-2 bg-indigo-200 rounded text-right mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
+            {/* <div className='bg-indigo-100 p-2 rounded'>{chat.options}</div> */}
+            <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
           </div>
         ))}
       </div>
