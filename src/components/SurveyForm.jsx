@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
 import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
 import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
-
+import Robot from '../assets/images/Body/robot-svgrepo-com.svg';
+import User from '../assets/images/Body/user-svgrepo-com.svg';
 
 const SurveyData=[
   {
@@ -72,11 +73,34 @@ const SurveyForm = () => {
 
 const handleSubmit=(e)=>{
   e.preventDefault();
-  
+  const value=e.target.userInput.value;
+  if(!value) return;
+  e.target.userInput.value="";
 
-  setFormData({...formData,
-    [SurveyData[currentQuestionIndex].id]:e.target.value
-  })
+  const newFormData={...formData,
+   [SurveyData[currentQuestionIndex].id]:value
+  };
+  setFormData(newFormData);
+
+
+ setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question, answer:value}]);
+
+ e.target.reset();
+
+if(currentQuestionIndex<SurveyData.length-1){
+  setCurrentQuestionIndex(currentQuestionIndex+1);
+}else{
+  console.log("Form Submitted",newFormData);
+  alert("Form Submitted Successfully!");
+
+// api logic to send form data to backend
+
+  setCurrentQuestionIndex(0);
+  setFormData({});
+  setMessagesHistory([]);
+}
+
+
 
 }
 
@@ -84,8 +108,8 @@ const handleSubmit=(e)=>{
 
 
   return (
-    <section className='min-h-screen  py-12 px-4 sm:px-6 lg:px-8 '>
-     <div className='max-w-7xl mx-auto'>
+    <section className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 '>
+     <div className='max-w-7xl mx-auto '>
      
       <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
        {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
@@ -97,12 +121,31 @@ const handleSubmit=(e)=>{
       
       </div>
 
+      <div className='space-y-4 mb-4'>
+        {messageHistory.map((chat,index)=>(
+          <div key={index} className='my-2 p-2 border-b'>
+            <div className='font-bold p-2 bg-indigo-200 rounded'><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}</div>
+            <div className='bg-indigo-100 p-2 rounded'>{chat.options}</div>
+            <div className='font-bold p-2 bg-indigo-200 rounded text-right mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
+          </div>
+        ))}
+      </div>
+
+      {currentQuestionIndex<SurveyData.length && (
+        <div  className='my-4 bg-indigo-100 p-4 rounded-lg'>
+       {SurveyData[currentQuestionIndex].question}
+        </div>
+      )}
+
       {/* <h1 className='p-4 bg-indigo-500 w-full text-white'>Welcome I am Your Ai Agent </h1> */}
       {/* <div className='p-4 bg-gray-200 w-full text-black my-3 rounded-lg'>Hello! I'm here to assist you with your survey. Please fill out the form below with your details and any questions or comments you may have. Your feedback is important to us!</div> */}
+    
+     <form onSubmit={handleSubmit}>
       <div className='flex flex-row gap-2 md:flex'>
-      <input type="text" placeholder='Type Your Message....' className='w-full border p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
+      <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full border p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
       <button className='bg-indigo-500 text-white p-4 my-3 rounded-lg mt-2 hover:bg-indigo-600 inline-flex items-center gap-1'>Submit <img src={Send} alt="Send" className='inline-flex  w-4 h-4 ' /></button>
       </div>
+      </form>
       </div>
      </div>
      
