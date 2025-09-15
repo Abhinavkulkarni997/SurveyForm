@@ -7,7 +7,7 @@ import User from '../assets/images/Body/user-svgrepo-com.svg';
 const SurveyData=[
   {
     id:1,
-    question:"Hi there! I am your AI assistant. I am here to help you in filling the survey form.",
+    question:"Hi there! I am your AI Assistant. I am here to help you in filling the survey form.",
   },
   {
     id:2,
