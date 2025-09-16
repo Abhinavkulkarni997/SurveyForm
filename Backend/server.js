@@ -14,9 +14,9 @@ const surveyRoutes = require('./routes/surveyRoutes');
 
 const app=express();
 dotenv.config();
-process.env.MONGODB_URL='mongodb://localhost:27017'
+process.env.MONGODB_URL='mongodb://localhost:27017/surveyDB';
 
-// middlewware 
+// middleware 
 app.use(cors());
 app.use(bodyParser.json());
 
