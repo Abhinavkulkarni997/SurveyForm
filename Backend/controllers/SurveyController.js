@@ -1,6 +1,6 @@
 import SurveyResponse from '../models/SurveyResponse.js';
 
-const submitSurvey=async (req,res)=>{
+export const submitSurvey=async (req,res)=>{
     try{
         const newResponse=new SurveyResponse({
             responses:req.body
@@ -12,4 +12,3 @@ const submitSurvey=async (req,res)=>{
     }
 }
 
-export {submitSurvey};

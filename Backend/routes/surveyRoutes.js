@@ -1,6 +1,8 @@
-import express from 'express';
-import {submitSurvey} from '../controllers/SurveyController.js';
+const express = require('express');
 const router=express.Router();
-router.post('/',submitSurvey);
+router.post('/',(req,res)=>{
+    console.log(req.body);
+    res.json({message:'Survey response submitted successfully'});
+});
 
-export default router;
+module.exports= router;

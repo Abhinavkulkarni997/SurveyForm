@@ -1,10 +1,3 @@
-// import express from 'express';
-// import cors from 'cors';
-// import bodyParser from 'body-parser';
-// import mongoose from 'mongoose';
-// import dotenv from 'dotenv';
-// import surveyRoutes from './routes/surveyRoutes.js';
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -20,7 +13,8 @@ process.env.MONGODB_URL='mongodb://localhost:27017/surveyDB';
 app.use(cors());
 app.use(bodyParser.json());
 
-
+// routes
+app.use('/api/surveys', surveyRoutes);
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
@@ -30,8 +24,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 }).catch((error) => {
     console.error('Error connecting to MongoDB:', error);
 });
-// routes
-app.use('/api/surveys', surveyRoutes);
+
 const PORT=process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
