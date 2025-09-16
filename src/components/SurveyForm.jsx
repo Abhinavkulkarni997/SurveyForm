@@ -3,6 +3,7 @@ import Send from '../assets/images/SubmitButton/send-symbol-svgrepo-com.svg';
 import Survey from '../assets/images/Heading/survey-rating-feedback-svgrepo-com.svg';
 import Robot from '../assets/images/Body/robot-svgrepo-com.svg';
 import User from '../assets/images/Body/user-svgrepo-com.svg';
+import axios from 'axios';
 
 const SurveyData=[
   {
@@ -95,10 +96,17 @@ if(currentQuestionIndex<SurveyData.length-1){
   alert("Form Submitted Successfully!");
 
 // api logic to send form data to backend
-
+axios.post('http://localhost:5000/api/surveys',newFormData)
+.then(response=>{
+  console.log("Response from server:",response.data);
+})
+.catch(error=>{
+  console.error("Error submitting form:",error);
+});
   setCurrentQuestionIndex(0);
   setFormData({});
   setMessagesHistory([]);
+  
 }
 
 
@@ -108,7 +116,7 @@ useEffect(()=>{
     setMessagesHistory([{question:SurveyData[0].question, answer:""}]);
     setCurrentQuestionIndex(1)
   }
-},[])
+},[currentQuestionIndex])
 
 
 
@@ -131,8 +139,10 @@ useEffect(()=>{
       <div className='space-y-4 mb-4'>
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
-            <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}</div>
-            {/* <div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div> */}
+            <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}
+            {chat.options && (<div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div>)}
+            </div>
+           
             {chat.answer && (
               <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
             )}
