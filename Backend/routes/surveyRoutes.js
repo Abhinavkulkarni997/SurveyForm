@@ -3,11 +3,12 @@ const survey =require('../models/Survey');
 const router=express.Router();
 router.post('/',async(req,res)=>{
     try{
-        const surveyData=new survey(req,res);
+        console.log(req.body)
+        const surveyData=new survey(req.body);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
 
- console.log(req.body);
+//  console.log(req.body);
     res.json({message:'Survey response submitted successfully'});
 
     }catch(error){
