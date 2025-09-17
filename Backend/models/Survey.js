@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const {schema}=mongoose;
+const Schema=mongoose.Schema;
 const surveySchema=new Schema({
     Name:{type:String ,required:true},
     CollegeName:{type:String,required:true},
