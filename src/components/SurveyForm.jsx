@@ -96,13 +96,20 @@ if(currentQuestionIndex<SurveyData.length-1){
   alert("Form Submitted Successfully!");
 
 // api logic to send form data to backend
-axios.post('http://localhost:5000/api/surveys',newFormData)
+axios.get('http://localhost:5000/api/surveys')
 .then(response=>{
   console.log("Response from server:",response.data);
 })
 .catch(error=>{
   console.error("Error submitting form:",error);
 });
+
+
+
+
+
+
+
   setCurrentQuestionIndex(0);
   setFormData({});
   setMessagesHistory([]);
