@@ -12,6 +12,7 @@ const SurveyData=[
   },
   {
     id:2,
+    field:'Name',
     question:"What is your name?",
     type:"text",
     placeholder:"Enter your name",
@@ -19,6 +20,7 @@ const SurveyData=[
   },
   {
     id:3,
+    field:'CollegeName',
     question:"What is Your College Name?",
     type:"text",
     placeholder:"Enter your college name",
@@ -26,6 +28,7 @@ const SurveyData=[
   },
     {
     id:4,
+    field:'Email',
     question:"What is your email?",
     type:"email",
     placeholder:"Enter your email",
@@ -33,18 +36,21 @@ const SurveyData=[
   },
   {
     id:5,
+    field:'MobileNumber',
     question:"What is your phone number?",
     type:"tel",
     placeholder:"Enter your phone number",
     required:true
   },{
     id:6,
+    field:'Course',
     question:"Please Select Your Course",
     type:"select",
     options:["B.Tech","M.Tech","BCA","MCA"],
     required:true
   },{
     id:7,
+    field:'DepartmentName',
     question:'Please Select Your Branch Name/ Department Name',
     type:"select",
     options:["CSE","ECE","EEE","IT","CSE-AI/ML","CSE-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity",
@@ -54,6 +60,7 @@ const SurveyData=[
     required:true
   },{
     id:8,
+    field:'AreaOfInterest',
     question:'What is your Area of Interest?',
     type:"select",
     options:["Natural Language Processing","Generative AI","Data Science","Computational Learning Theory","Machine Learning",
@@ -61,6 +68,7 @@ const SurveyData=[
     required:true
   },{
     id:9,
+    field:'Description',
     question:"Can You Provide a Brief Description About Artificial Intelligence and Machine Learning in your own words?",
     type:"textarea",
     placeholder:"Enter your description",
@@ -79,7 +87,7 @@ const handleSubmit=(e)=>{
   e.target.userInput.value="";
 
   const newFormData={...formData,
-   [SurveyData[currentQuestionIndex].id]:value
+   [SurveyData[currentQuestionIndex].field]:value
   };
   setFormData(newFormData);
 
@@ -96,18 +104,15 @@ if(currentQuestionIndex<SurveyData.length-1){
   alert("Form Submitted Successfully!");
 
 // api logic to send form data to backend
-axios.get('http://localhost:5000/api/surveys')
+axios.post('http://localhost:5000/api/surveys',newFormData)
 .then(response=>{
   console.log("Response from server:",response.data);
+  console.log(response.headers);
+  console.log(response.status);
 })
 .catch(error=>{
   console.error("Error submitting form:",error);
 });
-
-
-
-
-
 
 
   setCurrentQuestionIndex(0);

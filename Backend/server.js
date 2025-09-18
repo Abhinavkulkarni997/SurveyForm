@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/api/surveys', surveyRoutes);
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL, {
+    bufferCommands:3000,
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => { 

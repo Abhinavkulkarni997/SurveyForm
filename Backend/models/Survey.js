@@ -9,6 +9,7 @@ const surveySchema=new Schema({
     DepartmentName:{type:String,required:true},
     AreaOfInterest:{type:String,required:true},
     Description:{type:String,required:true},
+    AnalyzedData:{type:String,required:true}
   
 },{timestamps:true});
 
