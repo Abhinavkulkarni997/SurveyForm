@@ -11,7 +11,7 @@ process.env.MONGODB_URL='mongodb://localhost:27017/surveyDB';
 
 // middleware 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // routes
 app.use('/api/surveys', surveyRoutes);

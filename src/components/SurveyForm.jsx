@@ -86,12 +86,10 @@ const handleSubmit=(e)=>{
   if(!value) return;
   e.target.userInput.value="";
 
-  const newFormData={...formData,
+  const newFormData={...formData, AnalyzedData:'Pending Analysis',
    [SurveyData[currentQuestionIndex].field]:value
   };
   setFormData(newFormData);
-
-
  setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
   options:SurveyData[currentQuestionIndex].options, answer:value}]);
 
@@ -109,18 +107,16 @@ axios.post('http://localhost:5000/api/surveys',newFormData)
   console.log("Response from server:",response.data);
   console.log(response.headers);
   console.log(response.status);
+ 
 })
 .catch(error=>{
   console.error("Error submitting form:",error);
 });
-
-
   setCurrentQuestionIndex(0);
   setFormData({});
   setMessagesHistory([]);
   
 }
-
 
 }
 useEffect(()=>{
@@ -129,9 +125,6 @@ useEffect(()=>{
     setCurrentQuestionIndex(1)
   }
 },[currentQuestionIndex])
-
-
-
 
 
   return (
@@ -173,7 +166,7 @@ useEffect(()=>{
     
      <form onSubmit={handleSubmit}>
       <div className='flex flex-row gap-2 md:flex'>
-      <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full border p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
+      <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full  p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
       <button className='bg-indigo-500 text-white p-4 my-3 rounded-lg mt-2 hover:bg-indigo-600 inline-flex items-center gap-1'>Submit <img src={Send} alt="Send" className='inline-flex  w-4 h-4 ' /></button>
       </div>
       </form>
