@@ -81,24 +81,24 @@ const SurveyForm = () => {
   const [messageHistory,setMessagesHistory]=useState([]);
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    emailRegex.test(email);
+    return emailRegex.test(email);
 }
 
 const mobileNumberValidation=(MobileNumber)=>{
     const mobileRegex=/^\d{10}$/;
-    mobileRegex.test(MobileNumber);
+   return  mobileRegex.test(MobileNumber);
 }
 const handleSubmit=(e)=>{
   e.preventDefault();
-  const value=e.target.userInput.value;
+  const value=e.target.userInput.value.trim();
   if(!value) return;
   e.target.userInput.value="";
-
-  if(SurveyData[currentQuestionIndex].field==="Email" && !emailValidation(value)){
+  const currentField=SurveyData[currentQuestionIndex].field;
+  if(currentField==="Email" && !emailValidation(value)){
     alert("email is Invalid Please enter a valid Email")
     return; 
   }
-  if(SurveyData[currentQuestionIndex].field==="MobileNumber" && !mobileNumberValidation(value)){
+  if(currentField==="MobileNumber" && !mobileNumberValidation(value)){
     alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
     return;
   }
@@ -162,8 +162,9 @@ useEffect(()=>{
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
             <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}
-            {chat.options && (<div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div>)}
+            
             </div>
+            {chat.options && (<div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div>)}
            
             {chat.answer && (
               <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
