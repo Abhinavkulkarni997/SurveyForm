@@ -147,25 +147,20 @@ useEffect(()=>{
   return (
     <section className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 '>
      <div className='max-w-7xl mx-auto '>
-     
       <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
        {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
        {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
-
         <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
       <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
       <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
-      
       </div>
 
       <div className='space-y-4 mb-4'>
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
             <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}
-            
             </div>
-            {chat.options && (<div className='bg-indigo-100 p-2 rounded gap-2'>{chat.options}</div>)}
-           
+          
             {chat.answer && (
               <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
             )}
@@ -175,7 +170,9 @@ useEffect(()=>{
 
       {currentQuestionIndex<SurveyData.length && (
         <div  className='my-4 bg-indigo-100 p-4 rounded-lg'>
-       {SurveyData[currentQuestionIndex].question}
+       <h1 className='font-bold p-2 '>{SurveyData[currentQuestionIndex].question}</h1>
+       
+        <div  className='bg-indigo-100 p-2 rounded gap-2 '>{SurveyData[currentQuestionIndex].options}</div>
         </div>
       )}
 
