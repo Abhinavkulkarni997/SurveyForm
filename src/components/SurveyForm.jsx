@@ -79,12 +79,29 @@ const SurveyForm = () => {
   const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0);
   const [formData,setFormData]=useState({});
   const [messageHistory,setMessagesHistory]=useState([]);
+const emailValidation=(email)=>{
+    const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    emailRegex.test(email);
+}
 
+const mobileNumberValidation=(MobileNumber)=>{
+    const mobileRegex=/^\d{10}$/;
+    mobileRegex.test(MobileNumber);
+}
 const handleSubmit=(e)=>{
   e.preventDefault();
   const value=e.target.userInput.value;
   if(!value) return;
   e.target.userInput.value="";
+
+  if(SurveyData[currentQuestionIndex].field==="Email" && !emailValidation(value)){
+    alert("email is Invalid Please enter a valid Email")
+    return; 
+  }
+  if(SurveyData[currentQuestionIndex].field==="MobileNumber" && !mobileNumberValidation(value)){
+    alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
+    return;
+  }
 
   const newFormData={...formData, AnalyzedData:'Pending Analysis',
    [SurveyData[currentQuestionIndex].field]:value
