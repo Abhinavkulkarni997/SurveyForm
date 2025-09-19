@@ -3,8 +3,12 @@ const Schema=mongoose.Schema;
 const surveySchema=new Schema({
     Name:{type:String ,required:true},
     CollegeName:{type:String,required:true},
-    Email:{type:String,required:true,lowercase:true,unique:true},
-    MobileNumber:{type:String,required:true,unique:true},
+    Email:{type:String,required:true,lowercase:true,unique:true,
+        match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Invalid Email Format"]
+    },
+    MobileNumber:{type:String,required:true,unique:true,
+        match:[/^\d{10}$/,"Invalid Mobile Number"]
+    },
     Course:{type:String,required:true},
     DepartmentName:{type:String,required:true},
     AreaOfInterest:{type:String,required:true},
