@@ -150,12 +150,12 @@ useEffect(()=>{
       <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
        {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
        {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
-        <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
+        <div className='flex flex-wrap items-center justify-center bg-indigo-500 rounded-lg mx-auto '>
       <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
       <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
       </div>
 
-      <div className='space-y-4 mb-4'>
+      <div className='flex flex-wrap items-center justify-center space-y-4 mb-4'>
         {messageHistory.map((chat,index)=>(
           <div key={index} className='my-2 p-2 border-b'>
             <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}
@@ -170,9 +170,27 @@ useEffect(()=>{
 
       {currentQuestionIndex<SurveyData.length && (
         <div  className='my-4 bg-indigo-100 p-4 rounded-lg'>
-       <h1 className='font-bold p-2 '>{SurveyData[currentQuestionIndex].question}</h1>
-       
-        <div  className='bg-indigo-100 p-2 rounded gap-2 '>{SurveyData[currentQuestionIndex].options}</div>
+       <h1 className='font-bold p-2 '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{SurveyData[currentQuestionIndex].question}</h1>
+       {SurveyData[currentQuestionIndex].options && (
+        <div className='flex flex-wrap gap-2 mt-2 items-center justify-center '>
+       {SurveyData[currentQuestionIndex].options.map((option,i) =>(
+         
+          <button key={i} onClick={()=>{
+            const newFormData={...formData, AnalyzedData:'Pending Analysis',
+   [SurveyData[currentQuestionIndex].field]:option
+  };
+  setFormData(newFormData);
+ setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
+  options:SurveyData[currentQuestionIndex].options, answer:option}]); 
+  setCurrentQuestionIndex(prev=>prev+1)
+          }} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'>  {option}</button>
+        
+          
+          
+        ))}
+        </div>
+        )}
+        
         </div>
       )}
 
