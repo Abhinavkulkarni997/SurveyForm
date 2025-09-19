@@ -148,8 +148,6 @@ useEffect(()=>{
     <section className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 '>
      <div className='max-w-7xl mx-auto '>
       <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
-       {/* <h1 className='text-3xl font-bold text-center '>Student Form</h1> */}
-       {/* <p className="text-lg text-indigo-600 mb-2">Student Form</p> */}
         <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
       <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
       <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
@@ -175,28 +173,16 @@ useEffect(()=>{
         <div className='flex flex-wrap gap-2 mt-2 items-center justify-center '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>(
          
-          <button key={i} onClick={()=>{
-            const newFormData={...formData, AnalyzedData:'Pending Analysis',
-   [SurveyData[currentQuestionIndex].field]:option
-  };
-  setFormData(newFormData);
- setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
-  options:SurveyData[currentQuestionIndex].options, answer:option}]); 
-  setCurrentQuestionIndex(prev=>prev+1)
-          }} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'>  {option}</button>
-        
-          
-          
+          <button key={i} onClick={()=>{const newFormData={...formData, AnalyzedData:'Pending Analysis',[SurveyData[currentQuestionIndex].field]:option};
+          setFormData(newFormData);
+          setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
+          options:SurveyData[currentQuestionIndex].options, answer:option}]); 
+          setCurrentQuestionIndex(prev=>prev+1)}} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'>  {option}</button>
         ))}
         </div>
         )}
-        
         </div>
       )}
-
-      {/* <h1 className='p-4 bg-indigo-500 w-full text-white'>Welcome I am Your Ai Agent </h1> */}
-      {/* <div className='p-4 bg-gray-200 w-full text-black my-3 rounded-lg'>Hello! I'm here to assist you with your survey. Please fill out the form below with your details and any questions or comments you may have. Your feedback is important to us!</div> */}
-    
      <form onSubmit={handleSubmit}>
       <div className='flex flex-row gap-2 md:flex'>
       <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full  p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
