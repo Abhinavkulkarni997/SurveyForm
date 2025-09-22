@@ -11,7 +11,7 @@ const surveySchema=new Schema({
     },
     Course:{type:String,required:true},
     DepartmentName:{type:String,required:true},
-    AreaOfInterest:{type:String,required:true},
+    AreaOfInterest:{type:[String],required:true},
     Description:{type:String,required:true},
     AnalyzedData:{type:String,required:false}
   
