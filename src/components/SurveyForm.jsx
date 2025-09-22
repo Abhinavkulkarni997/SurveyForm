@@ -79,6 +79,7 @@ const SurveyForm = () => {
   const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0);
   const [formData,setFormData]=useState({});
   const [messageHistory,setMessagesHistory]=useState([]);
+  const [errorMessage,setErrorMessage]=useState('');
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -147,7 +148,7 @@ useEffect(()=>{
   return (
     <section className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 '>
      <div className='max-w-7xl mx-auto '>
-      <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg'>
+      <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg '>
         <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
       <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
       <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
@@ -171,8 +172,30 @@ useEffect(()=>{
        <h1 className='font-bold p-2 '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{SurveyData[currentQuestionIndex].question}</h1>
        {SurveyData[currentQuestionIndex].options && (
         <div className='flex flex-wrap gap-2 mt-2 items-center justify-center '>
-       {SurveyData[currentQuestionIndex].options.map((option,i) =>(
-         
+       {SurveyData[currentQuestionIndex].options.map((option,i) =>{
+         if(SurveyData[currentQuestionIndex].field==="AreaOfInterest"){
+          const selectedOptions=formData.AreaOfInterest ||[];
+          const isSelected=selectedOptions.includes(option);
+
+          return(
+            <div key={i} type="button" className={`rounded-full px-4 py-2 font-sans
+             ${isSelected?"bg-indigo-800 text-white":"bg-indigo-500 text-white hover:bg-indigo-800"}`}
+            onClick={()=>{let newSelected;
+            if(isSelected){
+              newSelected=selectedOptions.filter(op=>op!==option);
+            }else{
+              newSelected=[...selectedOptions,option];
+            }
+            setFormData({
+              ...formData,
+              AreaOfInterest:newSelected,
+              AnalyzedData:'Pending Analysis',
+            });
+            setErrorMessage("");
+            }}
+            >{option}</div>
+          )
+         }return(
           <button key={i} onClick={()=>{const newFormData={
             ...formData,
              AnalyzedData:'Pending Analysis',
@@ -183,10 +206,36 @@ useEffect(()=>{
             question:SurveyData[currentQuestionIndex].question,
           options:SurveyData[currentQuestionIndex].options, 
           answer:option}]); 
-          setCurrentQuestionIndex(prev=>prev+1)}} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'>  {option}</button>
-        ))}
+          setCurrentQuestionIndex(prev=>prev+1)}} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'
+          >  {option}</button>
+         )
+       })}
         </div>
         )}
+
+        {SurveyData[currentQuestionIndex].field==="AreaOfInterest" &&(
+          <div className='flex flex-col items-center mt-4'>
+          {(!formData.AreaOfInterest || formData.AreaOfInterest.length===0)&&(
+            <span className='text-red-500 mb-2'>Please Select at least one Area</span>
+          )}
+          <button type='button' disabled={!formData.AreaOfInterest || formData.AreaOfInterest.length===0}
+          className={`px-4 py-2 rounded-full font-semibold bg-indigo-600 ${formData.AreaOfInterest && formData.AreaOfInterest.length>0}`}
+          onClick={()=>{
+            setMessagesHistory([...messageHistory,{
+              question:SurveyData[currentQuestionIndex].question,
+              options:SurveyData[currentQuestionIndex].options,
+              answer:formData.AreaOfInterest.join(","),
+            },
+            ]);
+            setCurrentQuestionIndex(prev=>prev+1);
+          }}
+          >
+            Done
+          </button>
+          </div>
+        )}
+
+
         </div>
       )}
 
@@ -201,6 +250,7 @@ useEffect(()=>{
       </div>
       
      </div>
+     
       
      
      
