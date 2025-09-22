@@ -166,31 +166,42 @@ useEffect(()=>{
         ))}
       </div>
 
-      {currentQuestionIndex<SurveyData.length && (
+      {currentQuestionIndex<SurveyData.length  && (
         <div  className='my-4 bg-indigo-100 p-4 rounded-lg'>
        <h1 className='font-bold p-2 '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{SurveyData[currentQuestionIndex].question}</h1>
        {SurveyData[currentQuestionIndex].options && (
         <div className='flex flex-wrap gap-2 mt-2 items-center justify-center '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>(
          
-          <button key={i} onClick={()=>{const newFormData={...formData, AnalyzedData:'Pending Analysis',[SurveyData[currentQuestionIndex].field]:option};
+          <button key={i} onClick={()=>{const newFormData={
+            ...formData,
+             AnalyzedData:'Pending Analysis',
+             [SurveyData[currentQuestionIndex].field]:option};
           setFormData(newFormData);
-          setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
-          options:SurveyData[currentQuestionIndex].options, answer:option}]); 
+          setMessagesHistory([...messageHistory,
+          {
+            question:SurveyData[currentQuestionIndex].question,
+          options:SurveyData[currentQuestionIndex].options, 
+          answer:option}]); 
           setCurrentQuestionIndex(prev=>prev+1)}} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'>  {option}</button>
         ))}
         </div>
         )}
         </div>
       )}
+
+      {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && (
      <form onSubmit={handleSubmit}>
       <div className='flex flex-row gap-2 md:flex'>
       <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full  p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
       <button className='bg-indigo-500 text-white p-4 my-3 rounded-lg mt-2 hover:bg-indigo-600 inline-flex items-center gap-1'>Submit <img src={Send} alt="Send" className='inline-flex  w-4 h-4 ' /></button>
       </div>
       </form>
+      )}
       </div>
+      
      </div>
+      
      
      
      </section>
