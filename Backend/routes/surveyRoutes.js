@@ -1,21 +1,22 @@
 const express = require('express');
 const survey =require('../models/Survey');
+const {analyzeDescription}=require('../utils/analyzeDescription');
+
 const router=express.Router();
-
-
 router.post('/',async(req,res)=>{
     try{
-        console.log(req.body)
-        const surveyData=new survey(req.body);
+        const payload=req.body;
+        console.log(payload)
+        const {keywords}=payload.Description ? analyzeDescription(payload.Description) :{ keywords:[]};
+        payload.AnalyzedData=keywords;
+        const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
-
-//  console.log(req.body);
-    res.json({message:'Survey response submitted successfully'});
+    res.json({message:'Survey response submitted successfully',analysis:keywords});
 
     }catch(error){
         console.log('error in saving to DB',error);
-        res.status(500).json({error:error.message})
+        res.status(500).json({error:"Failed to save the Data",details:error.message})
     }
    
 });

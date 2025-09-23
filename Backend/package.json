@@ -18,6 +18,7 @@
     "express": "^5.1.0",
     "mongoose": "^8.18.1",
     "wink-eng-lite-web-model": "^1.8.1",
+    "wink-lemmatizer": "^3.0.4",
     "wink-nlp": "^2.4.0"
   }
 }
