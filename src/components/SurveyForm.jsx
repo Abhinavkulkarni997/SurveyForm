@@ -8,7 +8,7 @@ import axios from 'axios';
 const SurveyData=[
   {
     id:1,
-    question:"Hi there! I am your AI Assistant. I am here to help you in filling the survey form.",
+    question:"Hi there! I am your Survey Assistant. I am here to help you in filling the survey form.",
   },
   {
     id:2,
@@ -73,13 +73,14 @@ const SurveyData=[
     type:"textarea",
     placeholder:"Enter your description",
     required:true
-  }
+  },
 ]
 const SurveyForm = () => {
   const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0);
   const [formData,setFormData]=useState({});
   const [messageHistory,setMessagesHistory]=useState([]);
   const [errorMessage,setErrorMessage]=useState('');
+ 
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -146,40 +147,56 @@ useEffect(()=>{
 
 
   return (
-    <section className='min-h-screen py-12 px-4 sm:px-6 lg:px-8 '>
-     <div className='max-w-7xl mx-auto '>
-      <div className='w-1/2 mx-auto border p-5 rounded-lg shadow-lg '>
-        <div className='flex flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto'>
-      <img src={Survey} alt="Survey" className='w-8 h-8 bg-white  rounded-md ' />
-      <h1 className='p-4  text-white font-bold text-3xl'> Student Survey Form </h1>
+    <section className='min-h-screen py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8 '>
+     <div className='max-w-4xl mx-auto '>
+      <div className='w-full max-w-2xl mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden '>
+        <div className='flex flex-col sm:flex-row items-center justify-center bg-indigo-500   p-4 sm:p-6'>
+      <img src={Survey} alt="Survey" className='w-8 h-8 sm:w-10 sm:h-10 bg-white  rounded-md mb-2 sm:mb-0 sm:mr-3' />
+      <h1 className='text-white text-center font-bold text-xl sm:text-2xl md:text-3xl'> Student Survey Form </h1>
       </div>
 
-      <div className='space-y-4 mb-4'>
+      <div className='p-4 sm:p-6 max-h-96 overflow-y-auto'>
+      <div className='space-y-4'>
         {messageHistory.map((chat,index)=>(
-          <div key={index} className='my-2 p-2 border-b'>
-            <div className='font-bold p-2 bg-indigo-200 rounded '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{chat.question}
+          <div key={index} className='space-y-2 '>
+            <div className='bg-indigo-100 p-3 sm:p-4   rounded-lg border-l-4 border-indigo-500  '>
+            <div className='flex items-start space-x-3'>
+            <img src={Robot} alt="Robot" className=' w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 ' />
+            <p className='text-sm sm:text-base text-gray-800 leading-relaxed mt-1'>{chat.question}</p>
+            </div>
             </div>
           
             {chat.answer && (
-              <div className='font-bold p-2 bg-indigo-200 rounded text-left mt-2'><img src={User} alt="User" className='inline-flex w-8 h-8 mr-2 bg-blue-500 rounded-full' />{chat.answer}</div>
+              <div className='bg-blue-50 p-3 sm:p-4  rounded-lg  border-l-4 border-blue-500  '>
+              <div className='flex items-start space-x-3'>
+              <img src={User} alt="User" className=' w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0  bg-blue-500 rounded-full p-1' />
+              <p className='text-sm sm:text-base text-gray-800 leading-relaxed break-words mt-1'>{chat.answer}</p>
+              </div>
+              </div>
             )}
           </div>
         ))}
       </div>
+      </div>
 
       {currentQuestionIndex<SurveyData.length  && (
-        <div  className='my-4 bg-indigo-100 p-4 rounded-lg'>
-       <h1 className='font-bold p-2 '><img src={Robot} alt="Robot" className='inline-flex w-8 h-8 mr-2' />{SurveyData[currentQuestionIndex].question}</h1>
+        <div  className=' bg-indigo-100 p-4 sm:p-6 border-t border-gray-200  '>
+       <div className='flex items-center space-x-3 mb-4 '>
+       <img src={Robot} alt="Robot" className='w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 mt-1' />
+       <h2 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 leading-relaxed ">{SurveyData[currentQuestionIndex].question}</h2> 
+       </div>
        {SurveyData[currentQuestionIndex].options && (
-        <div className='flex flex-wrap gap-2 mt-2 items-center justify-center '>
+        <div className='space-y-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-3  '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>{
          if(SurveyData[currentQuestionIndex].field==="AreaOfInterest"){
           const selectedOptions=formData.AreaOfInterest ||[];
           const isSelected=selectedOptions.includes(option);
 
           return(
-            <div key={i} type="button" className={`rounded-full px-4 py-2 font-sans
-             ${isSelected?"bg-indigo-800 text-white":"bg-indigo-500 text-white hover:bg-indigo-800"}`}
+            <div key={i} type="button" 
+            className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg  text-sm sm:text-base font-medium  transition-all duration-200 min-h-12 text-left
+             ${isSelected?"bg-indigo-700 text-white shadow-md":"bg-indigo-500 text-white hover:bg-indigo-600 hover:shadow-md"}`}
             onClick={()=>{let newSelected;
             if(isSelected){
               newSelected=selectedOptions.filter(op=>op!==option);
@@ -206,20 +223,24 @@ useEffect(()=>{
             question:SurveyData[currentQuestionIndex].question,
           options:SurveyData[currentQuestionIndex].options, 
           answer:option}]); 
-          setCurrentQuestionIndex(prev=>prev+1)}} type="button" className='rounded-full bg-indigo-600 hover:bg-indigo-800 font-sans text-white px-4 py-2'
-          >  {option}</button>
+          setCurrentQuestionIndex(prev=>prev+1)}}
+           type="button" className='w-full px-3 sm:px-4 py-2 sm:py-3  rounded-lg bg-indigo-600 hover:bg-indigo-700  text-white text-sm sm:text-base font-medium transition-all duration-200 min-h-12 text-left hover:shadow-md'
+          > 
+           {option}
+           </button>
          )
        })}
         </div>
-        )}
+        
 
         {SurveyData[currentQuestionIndex].field==="AreaOfInterest" &&(
-          <div className='flex flex-col items-center mt-4'>
+          <div className='flex flex-col items-center space-y-3  pt-4 cursor-pointer'>
           {(!formData.AreaOfInterest || formData.AreaOfInterest.length===0)&&(
-            <span className='text-red-500 mb-2'>Please Select at least one Area</span>
+            <span className='text-red-500 text-sm sm:text-base'>Please Select at least one Area</span>
           )}
           <button type='button' disabled={!formData.AreaOfInterest || formData.AreaOfInterest.length===0}
-          className={`px-4 py-2 rounded-full font-semibold bg-indigo-600 ${formData.AreaOfInterest && formData.AreaOfInterest.length>0}`}
+          className={`px-6 sm:px-8  py-2 sm:py-3 rounded-lg  font-semibold text-sm sm:text-base  cursor-pointer transition-all duration-200 min-h-12
+           ${formData.AreaOfInterest && formData.AreaOfInterest.length > 0 } ? 'bg-indigo-600 border border-indigo-500 hover:bg-indigo-700  hover:shadow-md  : 'bg-gray-300 hover:text-white `}
           onClick={()=>{
             setMessagesHistory([...messageHistory,{
               question:SurveyData[currentQuestionIndex].question,
@@ -234,26 +255,40 @@ useEffect(()=>{
           </button>
           </div>
         )}
-
-
+        </div>
+      )}
         </div>
       )}
 
       {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && (
+      <div className='p-4 sm:p-6 border-t border-gray-200'>
      <form onSubmit={handleSubmit}>
-      <div className='flex flex-row gap-2 md:flex'>
-      <input id="userInput" type="text" placeholder='Type Your Message....' className='w-full  p-4 rounded-lg my-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 '></input>
-      <button className='bg-indigo-500 text-white p-4 my-3 rounded-lg mt-2 hover:bg-indigo-600 inline-flex items-center gap-1'>Submit <img src={Send} alt="Send" className='inline-flex  w-4 h-4 ' /></button>
+      <div className='flex flex-col gap-3 sm:flex-row'>
+      {SurveyData[currentQuestionIndex].type === 'textarea' ? (
+              <textarea id="userInput" 
+               name="userInput"
+               placeholder={SurveyData[currentQuestionIndex].placeholder || 'Type Your Message....' }
+               rows="4"
+               className='w-full p-3 sm:p-4 rounded-lg  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-vertical min-h-24 text-sm sm:text-base '/>
+
+      ):(
+      <input id="userInput" 
+      name="userInput"
+      type={SurveyData[currentQuestionIndex].type || "text"} 
+      placeholder={SurveyData[currentQuestionIndex].placeholder || 'Type Your Message....'} 
+       className='w-full p-3 sm:p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-vertical min-h-12 text-sm sm:text-base'/>
+      )}
+      <button type="submit" 
+      className='bg-indigo-500 text-white px-4 sm:px-6 py-3 sm:py-4  rounded-lg  hover:bg-indigo-600  transition-all duration-200 flex items-center justify-center gap-2 font-medium text-sm sm:text-base min-h-12 sm:min-h-12 hover:shadow-md'>
+      Submit
+      <img src={Send} alt="Send" className=' w-4 h-4 flex-shrink-0' />
+      </button>
       </div>
       </form>
+      </div>
       )}
       </div>
-      
      </div>
-     
-      
-     
-     
      </section>
   )
 }
