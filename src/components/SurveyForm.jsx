@@ -169,7 +169,7 @@ useEffect(()=>{
             {chat.answer && (
               <div className='bg-blue-50 p-3 sm:p-4  rounded-lg  border-l-4 border-blue-500  '>
               <div className='flex items-start space-x-3'>
-              <img src={User} alt="User" className=' w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0  bg-blue-500 rounded-full p-1' />
+              <img src={User} alt="User" className=' w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0   bg-blue-500 rounded-full p-1' />
               <p className='text-sm sm:text-base text-gray-800 leading-relaxed break-words mt-1'>{chat.answer}</p>
               </div>
               </div>
@@ -240,7 +240,7 @@ useEffect(()=>{
           )}
           <button type='button' disabled={!formData.AreaOfInterest || formData.AreaOfInterest.length===0}
           className={`px-6 sm:px-8  py-2 sm:py-3 rounded-lg  font-semibold text-sm sm:text-base  cursor-pointer transition-all duration-200 min-h-12
-           ${formData.AreaOfInterest && formData.AreaOfInterest.length > 0 } ? 'bg-indigo-600 border border-indigo-500 hover:bg-indigo-700  hover:shadow-md  : 'bg-gray-300 hover:text-white `}
+           ${formData.AreaOfInterest && formData.AreaOfInterest.length > 0  ? 'bg-indigo-600 border border-indigo-500 hover:bg-indigo-700  hover:shadow-md hover:text-white'  : 'bg-gray-300 hover:text-white cursor-not-allowed' }`}
           onClick={()=>{
             setMessagesHistory([...messageHistory,{
               question:SurveyData[currentQuestionIndex].question,
