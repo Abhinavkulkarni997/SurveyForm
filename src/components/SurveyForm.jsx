@@ -13,45 +13,45 @@ const SurveyData=[
   {
     id:2,
     field:'Name',
-    question:"What is your name?",
+    question:"Great! Let's begin. What's your name?",
     type:"text",
-    placeholder:"Enter your name",
+    placeholder:"Enter your name...",
     required:true
   },
   {
     id:3,
     field:'CollegeName',
-    question:"What is Your College Name?",
+    question:"Nice to meet you! What's is College Name?",
     type:"text",
-    placeholder:"Enter your college name",
+    placeholder:"Enter your college name...",
     required:true
   },
     {
     id:4,
     field:'Email',
-    question:"What is your email?",
+    question:"What is your email address?",
     type:"email",
-    placeholder:"Enter your email",
+    placeholder:"Enter your email...",
     required:true
   },
   {
     id:5,
     field:'MobileNumber',
-    question:"What is your phone number?",
+    question:"could  you share your phone number?",
     type:"tel",
-    placeholder:"Enter your phone number",
+    placeholder:"Enter your phone number...",
     required:true
   },{
     id:6,
     field:'Course',
-    question:"Please Select Your Course",
+    question:"Which course are you currently pursuing?",
     type:"select",
     options:["B.Tech","M.Tech","BCA","MCA"],
     required:true
   },{
     id:7,
     field:'DepartmentName',
-    question:'Please Select Your Branch Name/ Department Name',
+    question:'Please Select Your Branch or Department Name?',
     type:"select",
     options:["CSE","ECE","EEE","IT","CSE-AI/ML","CSE-DataScience","CSE-IoT","CSBS","CSIT","CSM","CSH","CS-Graphics","CS-DevOps","CS-CyberSecurity",
       "CS-CloudComputing","CS-BlockChain","ME","Mechanical Engineering (Mechatronics)","Digital Electronics and Communication Engineering",
@@ -61,8 +61,8 @@ const SurveyData=[
   },{
     id:8,
     field:'AreaOfInterest',
-    question:'What is your Area of Interest?',
-    type:"select",
+    question:'What areas interest you the most?(You can select multiple)',
+    type:"multiselect",
     options:["Natural Language Processing","Generative AI","Data Science","Computational Learning Theory","Machine Learning",
       "Artificial Intelligence","Cloud Computing","AI/ML-Cyber Security","Internet of Things (IoT)"],
     required:true
@@ -74,6 +74,11 @@ const SurveyData=[
     placeholder:"Enter your description",
     required:true
   },
+  // {
+  //   id:10,
+  //   question:"Perfect! Thank you for completing the survey. Your responses have been recorded!",
+  //   isComplete:true
+  // }
 ]
 const SurveyForm = () => {
   const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0);
@@ -182,7 +187,7 @@ useEffect(()=>{
        {SurveyData[currentQuestionIndex].question}</h1> 
        {SurveyData[currentQuestionIndex].options && (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-3 mt-3 '>
-       {SurveyData[currentQuestionIndex].oions.map((option,i) =>{
+       {SurveyData[currentQuestionIndex].options.map((option,i) =>{
          if(SurveyData[currentQuestionIndex].field==="AreaOfInterest"){
           const selectedOptions=formData.AreaOfInterest ||[];
           const isSelected=selectedOptions.includes(option);
@@ -200,16 +205,16 @@ useEffect(()=>{
             setFormData({
               ...formData,
               AreaOfInterest:newSelected,
-              AnalyzedData:'Pending Analysis',
+              // AnalyzedData:'Pending Analysis',
             });
             setErrorMessage("");
             }}
             >{option}</div>
           )
          }return(
-          <button key={i} onClick={()=>{const neptwFormData={
+          <button key={i} onClick={()=>{const newFormData={
             ...formData,
-             AnalyzedData:'Pending Analysis',
+            //  AnalyzedData:'Pending Analysis',
              [SurveyData[currentQuestionIndex].field]:option};
           setFormData(newFormData);
           setMessagesHistory([...messageHistory,
