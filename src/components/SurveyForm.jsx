@@ -153,8 +153,18 @@ axios.post('http://localhost:5000/api/surveys',newFormData)
 }
 useEffect(()=>{
   if(currentQuestionIndex===0){
+    setIsTyping(true);
+    setTimeout(()=>{
     setMessagesHistory([{question:SurveyData[0].question, answer:""}]);
-    setCurrentQuestionIndex(1)
+    setIsTyping(false);
+    setIsTyping(true);
+    setTimeout(()=>{
+      setIsTyping(false);
+      setCurrentQuestionIndex(prev=>prev+1);
+    },2000)
+    
+
+  },2000);
   }
 },[currentQuestionIndex])
 
@@ -203,7 +213,7 @@ useEffect(()=>{
         <div className='inline-flex  justify-start my-2'>
          <div className='px-4 py-2 rounded-lg  text-gray-700 max-w-sm text-sm sm:text-base'>
          <span className='flex space-x-1'>
-          <span  className='w-2 h-2 bg-purple-900 rounded-full animate-bounce [animation-delay:-0.45s]'></span>
+          <span  className='w-2 h-2 bg-gray-900 rounded-full animate-bounce [animation-delay:-0.45s]'></span>
           <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-300 [animation-delay:-045s]'></span>
           <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-500 [animation-delay:-0.45s]'></span>
           </span>
