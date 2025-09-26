@@ -168,20 +168,21 @@ useEffect(()=>{
       <h1 className='p-2 sm:p-4 text-white text-center font-bold text-lg sm:text-2xl md:text-3xl'> Student Survey Form </h1>
       </div>
 
+{/* message history after user typing input*/}
       <div className='space-y-4 mb-4 mt-4'>
         {messageHistory.map((chat,index)=>(
         
          
           <div key={index} className='space-y-4 my-2 p-2 '>
-            <div className='bg-indigo-100 p-2 sm:p-3 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500  '>
-            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
+            <div className='bg-indigo-100 p-2 sm:p-3 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
+            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2  ' />
             {chat.question}
             </div>
           
             {chat.answer && (
-              <div className='bg-blue-50 p-2 sm:p-3  rounded-lg  border-l-4 border-blue-500 text-left mt-2 text-sm sm:text-base'>
-              <img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ' />
-              {chat.answer}
+              <div className='bg-blue-50 p-2 sm:p-3  rounded-lg  border-l-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
+             
+              {chat.answer} <img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ' />
               </div>
             
             )}
@@ -202,9 +203,9 @@ useEffect(()=>{
         <div className='inline-flex  justify-start my-2'>
          <div className='px-4 py-2 rounded-lg  text-gray-700 max-w-sm text-sm sm:text-base'>
          <span className='flex space-x-1'>
-          <span  className='w-2 h-2 bg-gray-900 rounded-full animate-bounce'></span>
-          <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-300'></span>
-          <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-500'></span>
+          <span  className='w-2 h-2 bg-purple-900 rounded-full animate-bounce [animation-delay:-0.45s]'></span>
+          <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-300 [animation-delay:-045s]'></span>
+          <span className='w-2 h-2 bg-gray-900 rounded-full animate-bounce delay-500 [animation-delay:-0.45s]'></span>
           </span>
          </div>
          </div>
