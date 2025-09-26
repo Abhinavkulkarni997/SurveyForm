@@ -123,7 +123,7 @@ const handleSubmit=(e)=>{
   setTimeout(()=>{
     setIsTyping(false);
     setCurrentQuestionIndex(currentQuestionIndex+1);
-  },1500);
+  },2000);
 
  e.target.reset();
 
@@ -195,10 +195,10 @@ useEffect(()=>{
 
       {/* show question that has options and for select options for area of interest  */}
       {currentQuestionIndex<SurveyData.length  && (
-        <div  className='my-4 bg-indigo-100 p-2 sm:p-4  rounded-lg  '>
+        <div  className='my-4 bg-indigo-100 p-2 sm:p-4  rounded-lg text-start border-l-4 border-indigo-500 '>
        <h1 className='p-2 text-sm  sm:text-base md:text-lg '>
        <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
-       {isTyping && (
+       {isTyping ? (
         <div className='inline-flex  justify-start my-2'>
          <div className='px-4 py-2 rounded-lg  text-gray-700 max-w-sm text-sm sm:text-base'>
          <span className='flex space-x-1'>
@@ -208,8 +208,8 @@ useEffect(()=>{
           </span>
          </div>
          </div>
-       )}
-       {SurveyData[currentQuestionIndex].question}</h1> 
+       ):(SurveyData[currentQuestionIndex].question)}
+       </h1> 
        {SurveyData[currentQuestionIndex].options && (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-3 mt-3 '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>{
