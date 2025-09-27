@@ -160,7 +160,7 @@ useEffect(()=>{
     setIsTyping(true);
     setTimeout(()=>{
       setIsTyping(false);
-      setCurrentQuestionIndex(prev=>prev+1);
+      setCurrentQuestionIndex(currentQuestionIndex+1);
     },2000)
     
 
