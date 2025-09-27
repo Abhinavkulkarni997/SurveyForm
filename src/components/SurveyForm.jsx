@@ -183,19 +183,19 @@ useEffect(()=>{
         {messageHistory.map((chat,index)=>(
         
          
-          <div key={index} className='space-y-4 my-2 p-2 '>
+          <div key={index} className=' flex flex-row flex-wrap items-center justify-start space-y-1 my-2 p-2 '>
+           <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
             <div className='bg-indigo-100 p-2 sm:p-3 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
-            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2  ' />
             {chat.question}
             </div>
           
+          <div className='w-full flex flex-row items-end justify-end'>
             {chat.answer && (
               <div className='bg-blue-50 p-2 sm:p-3  rounded-lg  border-l-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
-             
               {chat.answer} <img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ' />
               </div>
-            
             )}
+            </div>
             
           </div>
       
@@ -205,10 +205,15 @@ useEffect(()=>{
       
 
       {/* show question that has options and for select options for area of interest  */}
+      <div className='flex flex-row items-center justify-start'>
+         <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
+    
       {currentQuestionIndex<SurveyData.length  && (
+        
         <div  className='my-4 bg-indigo-100 p-2 sm:p-4  rounded-lg text-start border-l-4 border-indigo-500 '>
+        
        <h1 className='p-2 text-sm  sm:text-base md:text-lg '>
-       <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
+      
        {isTyping ? (
         <div className='inline-flex  justify-start my-2'>
          <div className='px-4 py-2 rounded-lg  text-gray-700 max-w-sm text-sm sm:text-base'>
@@ -295,6 +300,8 @@ useEffect(()=>{
         )}
         </div>
       )}
+            </div>
+
     
     {/* Show options for text input and textarea(description) */}
       {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && (
