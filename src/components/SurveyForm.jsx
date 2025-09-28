@@ -8,7 +8,7 @@ import axios from 'axios';
 const SurveyData=[
   {
     id:1,
-    question:"Hi there! I am your Survey Assistant. I am here to help you in filling the survey form.",
+    question:"Hello! I'm your Survey Assistant, ready to guide you through the form.",
   },
   {
     id:2,
@@ -185,13 +185,13 @@ useEffect(()=>{
          
           <div key={index} className=' flex flex-row flex-wrap items-center justify-start space-y-1 my-2 p-2 '>
            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
-            <div className='bg-indigo-100 p-2 sm:p-3 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
+            <div className='bg-indigo-100 p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
             {chat.question}
             </div>
           
           <div className='w-full flex flex-row items-end justify-end'>
             {chat.answer && (
-              <div className='bg-blue-50 p-2 sm:p-3  rounded-lg  border-l-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
+              <div className='bg-blue-50 p-2 sm:p-2  rounded-lg  border-r-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
               {chat.answer} <img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ' />
               </div>
             )}
