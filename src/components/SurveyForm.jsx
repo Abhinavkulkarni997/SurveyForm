@@ -317,7 +317,7 @@ useEffect(()=>{
 
     
     {/* Show options for text input and textarea(description) */}
-      {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && (
+      {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && !isTyping && (
      <form onSubmit={handleSubmit}>
       <div className='flex flex-col gap-2 sm:gap-3 sm:flex-row'>
       {SurveyData[currentQuestionIndex].type === 'textarea' ? (
