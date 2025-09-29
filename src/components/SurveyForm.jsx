@@ -100,6 +100,7 @@ const mobileNumberValidation=(MobileNumber)=>{
 
 const handleSubmit=(e)=>{
   e.preventDefault();
+  
   const value=e.target.userInput.value.trim();
   if(!value) return;
   e.target.userInput.value="";
@@ -175,7 +176,7 @@ useEffect(()=>{
       <div className='w-full max-w-2xl mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden p-4 sm:p-5'>
    <div className='flex flex-col sm:flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto   p-3 sm:p-6'>
       <img src={Survey} alt="Survey" className='w-6 h-6 sm:w-8 sm:h-8 bg-white  rounded-md mb-2 sm:mb-0 sm:mr-2' />
-      <h1 className='p-2 sm:p-4 text-white text-center font-bold text-lg sm:text-2xl md:text-3xl'> Student Survey Form </h1>
+      <h1 className='p-2 sm:p-2 text-white text-center font-bold text-lg sm:text-2xl md:text-3xl'> Student Survey Form </h1>
       </div>
 
 {/* message history after user typing input*/}
@@ -207,13 +208,8 @@ useEffect(()=>{
       {/* show question that has options and for select options for area of interest  */}
       <div className='flex flex-row items-center justify-start'>
          <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
-    
       {currentQuestionIndex<SurveyData.length  && (
-        
-        <div  className='my-4 bg-indigo-100 p-2 sm:p-4  rounded-lg text-start border-l-4 border-indigo-500 '>
-        
-       <h1 className='p-2 text-sm  sm:text-base md:text-lg '>
-      
+        <div  className='my-4 bg-indigo-100 p-2 sm:p-2  rounded-lg text-start border-l-4 border-indigo-500 '>
        {isTyping ? (
         <div className='inline-flex  justify-start my-2'>
          <div className='px-4 py-2 rounded-lg  text-gray-700 max-w-sm text-sm sm:text-base'>
@@ -224,9 +220,9 @@ useEffect(()=>{
           </span>
          </div>
          </div>
-       ):(SurveyData[currentQuestionIndex].question)}
-       </h1> 
-       {SurveyData[currentQuestionIndex].options && (
+       ):(<>
+         <h1 className='p-2 text-sm  sm:text-base md:text-lg '>{SurveyData[currentQuestionIndex].question}</h1>
+ {SurveyData[currentQuestionIndex].options && (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-3 mt-3 '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>{
          if(SurveyData[currentQuestionIndex].field==="AreaOfInterest"){
@@ -263,7 +259,12 @@ useEffect(()=>{
             question:SurveyData[currentQuestionIndex].question,
           options:SurveyData[currentQuestionIndex].options, 
           answer:option}]); 
-          setCurrentQuestionIndex(prev=>prev+1)}}
+          setIsTyping(true);
+          setTimeout(()=>{
+            setIsTyping(false);
+            setCurrentQuestionIndex(prev=>prev+1);
+          },2000);
+          }}
            type="button" className=' px-3 sm:px-4 py-2 sm:py-3  rounded-lg bg-indigo-600 hover:bg-indigo-700  text-white text-sm sm:text-base font-medium transition-all duration-200 min-h-12  hover:shadow-md'
           > 
            {option}
@@ -291,16 +292,28 @@ useEffect(()=>{
               answer:formData.AreaOfInterest.join(","),
             },
             ]);
-            setCurrentQuestionIndex(prev=>prev+1);
+         
+          setIsTyping(true);
+          setTimeout(()=>{
+            setIsTyping(false);
+             setCurrentQuestionIndex(currentQuestionIndex+1);
+          },2000);
+             
+       
           }}
           >
             Done
           </button>
           </div>
+        )}</>
         )}
         </div>
       )}
             </div>
+
+     
+    
+      
 
     
     {/* Show options for text input and textarea(description) */}
