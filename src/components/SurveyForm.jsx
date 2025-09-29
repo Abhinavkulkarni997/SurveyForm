@@ -167,13 +167,15 @@ useEffect(()=>{
 
   },2000);
   }
-},[currentQuestionIndex])
+},[currentQuestionIndex]);
+
+
 
 
   return (
     <section className='min-h-screen py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8 '>
      <div className='max-w-7xl mx-auto '>
-      <div className='w-full max-w-2xl mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden p-4 sm:p-5'>
+      <div className='w-full max-w-2xl  mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden p-4 sm:p-5'>
    <div className='flex flex-col sm:flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto   p-3 sm:p-6'>
       <img src={Survey} alt="Survey" className='w-6 h-6 sm:w-8 sm:h-8 bg-white  rounded-md mb-2 sm:mb-0 sm:mr-2' />
       <h1 className='p-2 sm:p-2 text-white text-center font-bold text-lg sm:text-2xl md:text-3xl'> Student Survey Form </h1>
@@ -189,17 +191,20 @@ useEffect(()=>{
             <div className='bg-indigo-100 p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
             {chat.question}
             </div>
-          
+
           <div className='w-full flex flex-row items-end justify-end'>
             {chat.answer && (
               <div className='bg-blue-50 p-2 sm:p-2  rounded-lg  border-r-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
-              {chat.answer} <img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ' />
+              {chat.answer} 
               </div>
             )}
+            {chat.answer && (
+              <>
+                {<img src={User} alt="User" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 bg-blue-500 rounded-full p-1 ml-1' />}
+              </>
+            )}
             </div>
-            
           </div>
-      
         ))}
       </div>
 
@@ -309,12 +314,7 @@ useEffect(()=>{
         )}
         </div>
       )}
-            </div>
-
-     
-    
-      
-
+      </div>
     
     {/* Show options for text input and textarea(description) */}
       {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && !isTyping && (
