@@ -106,11 +106,32 @@ const handleSubmit=(e)=>{
   e.target.userInput.value="";
   const currentField=SurveyData[currentQuestionIndex].field;
   if(currentField==="Email" && !emailValidation(value)){
-    alert("email is Invalid Please enter a valid Email")
+    // alert("email is Invalid Please enter a valid Email")
+    setMessagesHistory([...messageHistory,
+    //   {
+    //   question:SurveyData[currentQuestionIndex].question,
+    //   answer:value,
+    // },
+    {
+      question:"That Doesn't look like a valid Email.Please enter a valid Email",
+      answer:"",
+      isError:true,
+    }]);
     return; 
   }
   if(currentField==="MobileNumber" && !mobileNumberValidation(value)){
-    alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
+    // alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
+    setMessagesHistory([...messageHistory,
+    //   {
+    //   question:SurveyData[currentQuestionIndex].question,
+    //   answer:value,
+    // },
+    {
+      question:"That Doesn't look like a valid Mobile Number.Please enter a valid Mobile Number",
+      answer:"",
+      isError:true,
+    }])
+    setErrorMessage("That Doesn't look like a valid Mobile Number.Please enter a valid Mobile Number");
     return;
   }
 
@@ -188,7 +209,8 @@ useEffect(()=>{
          
           <div key={index} className=' flex flex-row flex-wrap items-center justify-start space-y-1 my-2 p-2 '>
            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
-            <div className='bg-indigo-100 p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4 border-indigo-500 text-left '>
+            <div className={` p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4  text-left ${
+              chat.isError ? 'border-red-500 bg-red-100 text-red-700': 'bg-indigo-100 border-indigo-500 text-gray-900'}`}>
             {chat.question}
             </div>
 
@@ -226,7 +248,10 @@ useEffect(()=>{
          </div>
          </div>
        ):(<>
-         <h1 className='p-2 text-sm  sm:text-base md:text-lg '>{SurveyData[currentQuestionIndex].question}</h1>
+         <h1 className='p-2 text-sm  sm:text-base md:text-lg '>{SurveyData[currentQuestionIndex].question}
+         
+         
+         </h1>
  {SurveyData[currentQuestionIndex].options && (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-3 mt-3 '>
        {SurveyData[currentQuestionIndex].options.map((option,i) =>{
@@ -279,6 +304,17 @@ useEffect(()=>{
         </div>
       )}
 
+{/* {(SurveyData[currentQuestionIndex].field==="Email" || SurveyData[currentQuestionIndex].field==="MobileNumber") &&  (
+ <> 
+      {errorMessage && (
+        <div className='text-red-500 text-sm sm:text-base mb-2'>
+          {errorMessage}
+        </div>
+      )}
+  </>
+)}
+         */}
+
 
       {/* Show Done button for multiselect */}
         {SurveyData[currentQuestionIndex].field==="AreaOfInterest" &&(
@@ -315,6 +351,8 @@ useEffect(()=>{
         </div>
       )}
       </div>
+
+    
     
     {/* Show options for text input and textarea(description) */}
       {currentQuestionIndex<SurveyData.length && !SurveyData[currentQuestionIndex].options && !isTyping && (
