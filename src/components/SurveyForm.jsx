@@ -171,9 +171,12 @@ axios.post('http://localhost:5000/api/surveys',newFormData)
 .catch(error=>{
   console.error("Error submitting form:",error);
 });
-  // setCurrentQuestionIndex(0);
-  // setFormData({});
-  // setMessagesHistory([]);
+setTimeout(()=>{
+  setCurrentQuestionIndex(0);
+  setFormData({});
+  setMessagesHistory([]);
+},30000);
+
   
 }
 
@@ -212,7 +215,8 @@ useEffect(()=>{
         {messageHistory.map((chat,index)=>(
           <div key={index} className=' flex flex-row flex-wrap items-center justify-start space-y-1 my-2 p-2 '>
           {chat.isComplete?(
-            <div className='w-full flex justify-left items-center ml-8'>
+            <div className='w-full flex justify-left items-center '>
+            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
             <div className='bg-green-100  text-left p-2 rounded-lg border-l-4 border-green-500 max-w-md'>{chat.question}</div>
             </div>
           ):(
