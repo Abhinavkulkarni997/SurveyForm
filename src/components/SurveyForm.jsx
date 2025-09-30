@@ -153,7 +153,12 @@ if(currentQuestionIndex<SurveyData.length-1){
   setCurrentQuestionIndex(currentQuestionIndex+1);
 }else{
   console.log("Form Submitted",newFormData);
-  alert("Form Submitted Successfully!");
+  // alert("Form Submitted Successfully!");
+
+  setMessagesHistory([...messageHistory,
+    {question:"Perfect! Thank you for completing the survey. Your responses have been recorded!",
+  answer:null,
+isComplete:true}]);
 
 // api logic to send form data to backend
 axios.post('http://localhost:5000/api/surveys',newFormData)
@@ -166,9 +171,9 @@ axios.post('http://localhost:5000/api/surveys',newFormData)
 .catch(error=>{
   console.error("Error submitting form:",error);
 });
-  setCurrentQuestionIndex(0);
-  setFormData({});
-  setMessagesHistory([]);
+  // setCurrentQuestionIndex(0);
+  // setFormData({});
+  // setMessagesHistory([]);
   
 }
 
@@ -205,18 +210,23 @@ useEffect(()=>{
 {/* message history after user typing input*/}
       <div className='space-y-4 mb-4 mt-4'>
         {messageHistory.map((chat,index)=>(
-        
-         
           <div key={index} className=' flex flex-row flex-wrap items-center justify-start space-y-1 my-2 p-2 '>
+          {chat.isComplete?(
+            <div className='w-full flex justify-left items-center ml-8'>
+            <div className='bg-green-100  text-left p-2 rounded-lg border-l-4 border-green-500 max-w-md'>{chat.question}</div>
+            </div>
+          ):(
+
+          <>
            <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
             <div className={` p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4  text-left ${
-              chat.isError ? 'border-red-500 bg-red-100 text-red-700': 'bg-indigo-100 border-indigo-500 text-gray-900'}`}>
+              chat.isError ? 'border-red-500 bg-red-100 text-red-700': 'bg-indigo-200 border-indigo-500 text-gray-900'}`}>
             {chat.question}
             </div>
 
           <div className='w-full flex flex-row items-end justify-end'>
             {chat.answer && (
-              <div className='bg-blue-50 p-2 sm:p-2  rounded-lg  border-r-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
+              <div className='bg-blue-100 p-2 sm:p-2  rounded-lg  border-r-4 border-blue-500 text-right mt-2 text-sm sm:text-base'>
               {chat.answer} 
               </div>
             )}
@@ -226,6 +236,8 @@ useEffect(()=>{
               </>
             )}
             </div>
+            </>
+          )}
           </div>
         ))}
       </div>
