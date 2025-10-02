@@ -159,6 +159,7 @@ if(currentQuestionIndex<SurveyData.length-1){
     {question:"Perfect! Thank you for completing the survey. Your responses have been recorded!",
   answer:null,
 isComplete:true}]);
+setIsTyping(false);
 
 // api logic to send form data to backend
 axios.post('http://localhost:5000/api/surveys',newFormData)
@@ -190,7 +191,9 @@ useEffect(()=>{
     setIsTyping(true);
     setTimeout(()=>{
       setIsTyping(false);
+      if(currentQuestionIndex<SurveyData.length-1){
       setCurrentQuestionIndex(currentQuestionIndex+1);
+      }
     },2000)
     
 
