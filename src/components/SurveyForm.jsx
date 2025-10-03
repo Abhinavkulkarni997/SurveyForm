@@ -86,7 +86,7 @@ const SurveyForm = () => {
   const [messageHistory,setMessagesHistory]=useState([]);
   const [errorMessage,setErrorMessage]=useState('');
   const [isTyping,setIsTyping]=useState(false);
-
+  
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -135,31 +135,36 @@ const handleSubmit=(e)=>{
     return;
   }
 
-  const newFormData={...formData, AnalyzedData:'Pending Analysis',
+  const newFormData={...formData,
+    //  AnalyzedData:'Pending Analysis',
    [SurveyData[currentQuestionIndex].field]:value
   };
   setFormData(newFormData);
  setMessagesHistory([...messageHistory,{question:SurveyData[currentQuestionIndex].question,
   options:SurveyData[currentQuestionIndex].options, answer:value}]);
   setIsTyping(true);
-  setTimeout(()=>{
+   setTimeout(()=>{
     setIsTyping(false);
+  
     setCurrentQuestionIndex(currentQuestionIndex+1);
+    
   },2000);
 
  e.target.reset();
 
 if(currentQuestionIndex<SurveyData.length-1){
   setCurrentQuestionIndex(currentQuestionIndex+1);
-}else{
+}
+else{
   console.log("Form Submitted",newFormData);
   // alert("Form Submitted Successfully!");
+
+
 
   setMessagesHistory([...messageHistory,
     {question:"Perfect! Thank you for completing the survey. Your responses have been recorded!",
   answer:null,
 isComplete:true}]);
-setIsTyping(false);
 
 // api logic to send form data to backend
 axios.post('http://localhost:5000/api/surveys',newFormData)
@@ -191,9 +196,8 @@ useEffect(()=>{
     setIsTyping(true);
     setTimeout(()=>{
       setIsTyping(false);
-      if(currentQuestionIndex<SurveyData.length-1){
       setCurrentQuestionIndex(currentQuestionIndex+1);
-      }
+      
     },2000)
     
 
@@ -252,6 +256,7 @@ useEffect(()=>{
       
 
       {/* show question that has options and for select options for area of interest  */}
+      {currentQuestionIndex < SurveyData.length &&  !messageHistory.some(m=>(m.isComplete)) && (
       <div className='flex flex-row items-center justify-start'>
          <img src={Robot} alt="Robot" className='inline-flex w-6 h-6 sm:w-8 sm:h-8 mr-2' />
       {currentQuestionIndex<SurveyData.length  && (
@@ -370,7 +375,7 @@ useEffect(()=>{
         </div>
       )}
       </div>
-
+)}
     
     
     {/* Show options for text input and textarea(description) */}
