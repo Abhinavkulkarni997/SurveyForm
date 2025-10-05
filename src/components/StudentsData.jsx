@@ -37,7 +37,8 @@ const StudentsData = () => {
                 <th className='px-4 py-2'>Student Department Name</th>
                 <th className='px-4 py-2'>Student Area Of Interest</th>
                 <th className='px-4 py-2'>Student Description</th>
-                <th className='px-4 py-2'>Student Analyzed Data</th>
+                <th className='px-4 py-2'>Student Analyzed Data with winkNLP</th>
+                <th className='px-4 py-2'>Student Analyzed Data with RAKE</th>
             </tr>
               
             </thead>
