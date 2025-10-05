@@ -21,4 +21,16 @@ router.post('/',async(req,res)=>{
    
 });
 
+router.get('/',async(req,res)=>{
+    try{
+        const studentsData=await survey.find();
+        res.json(studentsData);
+    }
+    catch(error){
+        console.log('error in fetching data',error);
+        res.status(500).json({error:"Failed to fetch the Data",details:error.message})
+
+    }
+})
+
 module.exports= router;
