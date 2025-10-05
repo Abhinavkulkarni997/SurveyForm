@@ -19,16 +19,16 @@ const StudentsData = () => {
 
   return (
     <section>
-        <div className='text-center my-8 px-8 sm:px-4'>
-        <h1>Students Data</h1>
-        <p>Here you can find the data of all students who have submitted the survey.</p>
+        <div className='max-w-7xl text-center my-8 px-8 sm:px-4'>
+        <h1 className='text-2xl font-serif'>Students Submitted  Data</h1>
+      
         </div>
-        <div className='max-w-7xl mx-auto p-4 sm:p-8 border rounded-lg shadow-lg'>
+        <div className=' overflow-x-auto mx-auto p-4 sm:p-8 border rounded-lg shadow-lg'>
        
-                <table className='min-h-screen rounded-lg w-full border-collapse border border-slate-400'>
-            <thead className='bg-indigo-800 text-white  font-bold line-height:1.5 flex items-center justify-between p-2 border-b'>
+                <table className='min-h-screen table-auto rounded-lg  border border-slate-400'>
+            <thead className='bg-indigo-800 text-white  font-bold line-height:1.5  p-2 border-b'>
             <tr >
-                <th className='px-4 py-2 '>Sr.No</th>
+                {/* <th className='px-4 py-2 '>Sr.No</th> */}
                 <th className='px-4 py-2'>Student Name</th>
                 <th className='px-4 py-2'>Student College Name</th>
                 <th className='px-4 py-2'>Student Email</th>
@@ -41,10 +41,11 @@ const StudentsData = () => {
             </tr>
               
             </thead>
-            <tbody>
+            <tbody className='text-center'>
              {studentsSubmittedData.map((student,index)=>(
                 <tr key={index} className='border-b'>
                     <td className='px-2 py-2 '>{student.Name}</td>
+                 
                     <td className='px-2 py-2 '>{student.CollegeName}</td>
                     <td className='px-2 py-2 '>{student.Email}</td>
                     <td className='px-2 py-2 '>{student.MobileNumber}</td>
