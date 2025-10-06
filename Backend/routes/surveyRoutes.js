@@ -1,18 +1,22 @@
 const express = require('express');
 const survey =require('../models/Survey');
 const {analyzeDescription}=require('../utils/analyzeDescription');
+const {rakeAnalyzer}=require('../utils/rakeAnalyzer');
 
 const router=express.Router();
 router.post('/',async(req,res)=>{
     try{
         const payload=req.body;
         console.log(payload)
-        const {keywords}=payload.Description ? analyzeDescription(payload.Description) :{ keywords:[]};
-        payload.AnalyzedData=keywords;
+        const {keywords:winkKeywords}=payload.Description ? analyzeDescription(payload.Description) :{ keywords:[]};
+        const {keywords:rakeKeywords}=payload.Description?rakeAnalyzer(payload.Description):{ keywords:[]};
+
+        payload.WinkAnalyzedData=winkKeywords;
+        payload.RakeAnalyzedData=rakeKeywords;
         const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
-    res.json({message:'Survey response submitted successfully',analysis:keywords});
+    res.json({message:'Survey response submitted successfully',analysis:{wink:winkKeywords,rake:rakeKeywords}});
 
     }catch(error){
         console.log('error in saving to DB',error);

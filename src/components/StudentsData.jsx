@@ -18,14 +18,14 @@ const StudentsData = () => {
 
 
   return (
-    <section>
+    <section className='min-h-screen'>
         <div className='max-w-7xl text-center my-8 px-8 sm:px-4'>
         <h1 className='text-2xl font-serif'>Students Submitted  Data</h1>
       
         </div>
-        <div className=' overflow-x-auto mx-auto p-4 sm:p-8 border rounded-lg shadow-lg'>
+        <div className=' overflow-x-auto   mx-auto p-4 sm:p-8 border rounded-lg shadow-lg'>
 
-                <table className='min-h-screen table-auto rounded-lg  border-separate border border-slate-400 md:table-fixed'>
+                <table className='min-h-screen table-auto rounded-lg  border-separate  border border-slate-400 md:table-fixed'>
                 <caption className='caption-top text-lg font-semibold mb-4 md:caption-top'>Information of the Students Submitted Using  the Form</caption>
             <thead className='bg-indigo-800 text-white  font-bold line-height:1.5  p-2 border-b'>
             <tr >
@@ -43,10 +43,10 @@ const StudentsData = () => {
             </tr>
               
             </thead>
-            <tbody className='text-center'>
+            <tbody className='text-center '>
              {studentsSubmittedData.map((student,index)=>(
 
-                <tr key={index} className='border-b'>
+                <tr key={index} className='border-b hover:bg-indigo-100'>
                 
                     <td className='border border-gray-400 px-2 py-2 '>{student.Name}</td>
                     <td className='border border-gray-400 px-2 py-2 '>{student.CollegeName}</td>
