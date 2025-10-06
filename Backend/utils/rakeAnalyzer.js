@@ -18,7 +18,6 @@ function rakeAnalyzer(text=''){
 const keywords=Object.entries(freq)
 .sort((a,b)=>(b[1]-a[1]))
 .map(e=>e[0])
-const keywords=rake.generate(text);
     return {keywords};
 }
 
