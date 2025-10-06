@@ -47,7 +47,7 @@ const StudentsData = () => {
              {studentsSubmittedData.map((student,index)=>(
 
                 <tr key={index} className='border-b hover:bg-indigo-100'>
-                
+
                     <td className='border border-gray-400 px-2 py-2 '>{student.Name}</td>
                     <td className='border border-gray-400 px-2 py-2 '>{student.CollegeName}</td>
                     <td className='border border-gray-400 px-2 py-2 '>{student.Email}</td>
@@ -55,9 +55,9 @@ const StudentsData = () => {
                     <td className='border border-gray-400 px-2 py-2 '>{student.Course}</td>
                     <td className='border border-gray-400 px-2 py-2 '>{student.DepartmentName}</td>
                     <td className='border border-gray-400 px-2 py-2 '>{student.AreaOfInterest.join(', ')}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.Description}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.AnalyzedData.join(', ')}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{}</td>
+                    <td className='border border-gray-400 px-8 py-2 '>{student.Description}</td>
+                    <td className='border border-gray-400 px-2 py-2 '>{student.WinkAnalyzedData.join(', ')}</td>
+                    <td className='border border-gray-400 px-2 py-2 '>{student.RakeAnalyzedData.join(', ')}</td>
                     </tr>
                 ))}
             </tbody>
