@@ -13,7 +13,8 @@ const surveySchema=new Schema({
     DepartmentName:{type:String,required:true},
     AreaOfInterest:{type:[String],required:true},
     Description:{type:String,required:true},
-    AnalyzedData:{type:[String],default:[],required:false}
+    WinkAnalyzedData:{type:[String],default:[],required:false},
+    RakeAnalyzedData:{type:[String],default:[],required:false}
   
 },{timestamps:true});
 
