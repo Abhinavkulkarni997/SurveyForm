@@ -1,11 +1,14 @@
-const rake=require('node-rake');
+// const rake=require('node-rake');
 const sw=require('stopword');
 
-function rakeAnalyzer(text=''){
-    if(!text || !text.trim()){
+function rakeAnalyzer(text){
+    if(!text || text.trim()===""){
         return{keywords:[]};
     };
+
+    // normalize text to lowercase and split into words
     const words=text.toLowerCase().split(/[\s,.;!?()]+/);
+    // mark stopwords
     const stopwords=new Set(sw.en);
 
     // const filteredWords=sw.removeStopwords(words);
@@ -36,12 +39,25 @@ for(const phrase of phrases){
             degree[word]=(degree[word]||0) + (phrase.length -1);
         }
         for(const word of uniqueWords){
-            degree[word]=(degree[word]||0) +1;
+            degree[word]+=freq[word] ;
 }
 }
-const keywords=Object.entries(freq)
-.sort((a,b)=>(b[1]-a[1]))
-.map(e=>e[0])
+
+const wordScores={};
+for(const word in freq)
+{
+    wordScores[word]=degree[word]/freq[word];
+}
+
+const phraseScores=phrases.map(p=>{
+    const score =p.reduce((sum,w)=>sum+(wordScores[w]||0),0);
+    return {phrase:p.join(''),score};
+});
+
+phraseScores.sort((a,b)=>b.score-a.score);
+const keywords=phraseScores.slice(0,10).map(p=>p.phrase);
+
+
     return {keywords};
 }
 
