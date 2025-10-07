@@ -18,52 +18,53 @@ const StudentsData = () => {
 
 
   return (
-    <section className='min-h-screen'>
-        <div className='max-w-7xl text-center my-8 px-8 sm:px-4'>
-        <h1 className='text-2xl font-serif'>Students Submitted  Data</h1>
-      
+    <section className='min-h-screen py-4 sm:py-6 lg:py-8 '>
+        <div className='max-w-7xl mx-auto text-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8 '>
+        <h1 className='text-xl sm:text-2xl lg:text-3xl font-serif'>Students Submitted  Data</h1>
         </div>
-        <div className=' overflow-x-auto   mx-auto p-4 sm:p-8 border rounded-lg shadow-lg'>
+<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 '>
+        <div className='w-full overflow-x-auto  p-2 sm:p-2 lg:p-4 border rounded-lg shadow-lg bg-white'>
 
-                <table className='min-h-screen table-auto rounded-lg  border-separate  border border-slate-400 md:table-fixed'>
-                <caption className='caption-top text-lg font-semibold mb-4 md:caption-top'>Information of the Students Submitted Using  the Form</caption>
-            <thead className='bg-indigo-800 text-white  font-bold line-height:1.5  p-2 border-b'>
+                <table className='w-full min-w-max  table-auto rounded-lg  border-separate border border-slate-400 '>
+                <caption className='caption-top text-sm sm:text-base lg:text-lg font-semibold py-4 md:caption-top'>
+                Information of the Students Submitted Using  the Form</caption>
+            <thead className='bg-indigo-800  text-white  font-bold line-height:1.5  p-2 border-b'>
             <tr >
                 {/* <th className='px-4 py-2 '>Sr.No</th> */}
-                <th className='border border-gray-400 px-4 py-2'>Student Name</th>
-                <th className='border border-gray-400 px-4 py-2'>Student College Name</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Email</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Mobile Number</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Course</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Department Name</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Area Of Interest</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Description</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Analyzed Data with winkNLP</th>
-                <th className='border border-gray-400 px-4 py-2'>Student Analyzed Data with RAKE</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Name</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student College Name</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Email</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Mobile Number</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Course</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Department Name</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Area Of Interest</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Description</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Analyzed Data with winkNLP</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Analyzed Data with RAKE</th>
             </tr>
               
             </thead>
-            <tbody className='text-center '>
+            <tbody className='text-center divide-y divide-gray-200 '>
              {studentsSubmittedData.map((student,index)=>(
 
                 <tr key={index} className='border-b hover:bg-indigo-100'>
 
-                    <td className='border border-gray-400 px-2 py-2 '>{student.Name}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.CollegeName}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.Email}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.MobileNumber}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.Course}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.DepartmentName}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.AreaOfInterest.join(', ')}</td>
-                    <td className='border border-gray-400 px-8 py-2 '>{student.Description}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.WinkAnalyzedData.join(', ')}</td>
-                    <td className='border border-gray-400 px-2 py-2 '>{student.RakeAnalyzedData.join(', ')}</td>
+                    <td className='border border-gray-400 px-2 sm:px-3 md:px-4  py-2  text-xs sm:text-sm md:text-base'>{student.Name}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base'>{student.CollegeName}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base'>{student.Email}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base'>{student.MobileNumber}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base'>{student.Course}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base'>{student.DepartmentName}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.AreaOfInterest.join(', ')}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4  py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.Description}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.WinkAnalyzedData.join(', ')}</td>
+                    <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.RakeAnalyzedData.join(', ')}</td>
                     </tr>
                 ))}
             </tbody>
             
         </table>
-       
+   </div>
     
         </div>
 
