@@ -39,8 +39,8 @@ const StudentsData = () => {
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Department Name</th>
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Area Of Interest</th>
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Description</th>
-                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Analyzed Data with winkNLP</th>
-                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Analyzed Data with RAKE</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Analyzed with winkNLP</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Analyzed with RAKE</th>
             </tr>
               
             </thead>
