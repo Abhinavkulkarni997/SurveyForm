@@ -64,11 +64,11 @@
 //     return {keywords};
 // }
 
-
-
-
 // module.exports={rakeAnalyzer};
 
+
+
+// current working version
 
 // const rake=require('node-rake');
 const sw=require('stopword');
@@ -77,11 +77,11 @@ function rakeAnalyzer(text=''){
     if(!text || text.trim()===""){
         return{keywords:[]};
     };
-    // console.log('Original text:',text);
+     console.log('Original text:',text);
 
     // normalize text to lowercase and split into words
     const sentences=text.toLowerCase().split(/[\s,.;!?()]+/).filter(s=>s.trim().length>0);
-    // console.log('Split Words:',words);
+     console.log('Split Words:',sentences);
   const allPhrases=[];
 
     for(const sentence of sentences){
@@ -100,9 +100,9 @@ function rakeAnalyzer(text=''){
             if(currentPhrase.length>0){
                 allPhrases.push([...currentPhrase])
             }
-
 }
 
+// filtering all valid phrases 
 const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
 if(validPhrases.length===0){
     return{keywords:[]};
@@ -118,7 +118,6 @@ for(const phrase of validPhrases){
         degree[word]=(degree[word]||0)+(phrase.length);
     }
 }
-    
 // calculation of  word scores
 const wordScores={};
 for(const word in freq){
@@ -138,8 +137,5 @@ const keywords=phraseScores.slice(0,10).map(p=>p.phrase);
 
     return {keywords};
 }
-
-
-
 
 module.exports={rakeAnalyzer};
