@@ -22,8 +22,8 @@ const nounTokens=doc.tokens().filter((t)=>{
     const pos=t.out(its.pos);
     return pos==='PROPN'||pos==='NOUN' || pos==='ADJ';
 
-}).map((t)=>t.out(its.lemma));
-
+}).map((t)=>t.out());
+// .map((t)=>t.out(its.lemma));
 
 const candidates=[...entities,...nounTokens].map((s)=>(s || '').toLowerCase().trim()).filter(Boolean)
 
