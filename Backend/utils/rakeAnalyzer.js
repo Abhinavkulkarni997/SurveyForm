@@ -125,7 +125,7 @@ for(const word in freq){
 }
 // Calculate phrase scores
 const phraseScores=validPhrases.map(phrase=>({
-    phrase:phrase.join(''),
+    phrase:phrase.join(' '),
     score:phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0)
 }))
 
