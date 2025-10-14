@@ -79,13 +79,25 @@ function rakeAnalyzer(text=''){
     };
      console.log('Original text:',text);
 
+     const stopwords=new Set([...sw,
+        'want', 'wanted', 'wants',
+        'get', 'gets', 'getting',
+        'make', 'makes', 'making',
+        'see', 'sees', 'seeing',
+        'feel', 'feels', 'feeling',
+        'work', 'works', 'working',
+        'apply', 'applies', 'applying',
+        'future', 'view', 'wish', 'amazing', 'interesting'
+
+     ])
+
     // normalize text to lowercase and split into words
-    const sentences=text.toLowerCase().split(/[\s,.;!?()]+/).filter(s=>s.trim().length>0);
+    const sentences=text.toLowerCase().split(/[.;!?]+/).filter(s=>s.trim().length>0);
      console.log('Split Words:',sentences);
   const allPhrases=[];
 
     for(const sentence of sentences){
-       const words=sentence.split(/[\s,.;!?()]+/).filter(s=>s.trim()!='');
+       const words=sentence.split(/[\s,()]+/).filter(w=>w.trim()!='');
             let currentPhrase=[];
             for(const word of words){
                 if(sw.eng.includes(word)){
@@ -101,6 +113,7 @@ function rakeAnalyzer(text=''){
                 allPhrases.push([...currentPhrase])
             }
 }
+console.log('All phrases:',allPhrases);
 
 // filtering all valid phrases 
 const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
@@ -118,16 +131,21 @@ for(const phrase of validPhrases){
         degree[word]=(degree[word]||0)+(phrase.length);
     }
 }
+console.log('Frequency:',freq);
+console.log('Degree:',degree);
+
 // calculation of  word scores
 const wordScores={};
 for(const word in freq){
-    wordScores[word]=(degree[word]||0)/freq[word];
+    wordScores[word]=(degree[word])/freq[word];
 }
+console.log('Word Scores:',wordScores)
 // Calculate phrase scores
 const phraseScores=validPhrases.map(phrase=>({
     phrase:phrase.join(' '),
     score:phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0)
 }))
+console.log('PhraseScores:',phraseScores);
 
 // logic for sorting and selecting top keywords
 
