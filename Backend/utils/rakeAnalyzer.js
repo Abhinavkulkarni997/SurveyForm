@@ -230,10 +230,22 @@ const phraseScores=validPhrases.map(phrase=>{
         wordCount:phrase.length,
         frequency:phrase.reduce((sum,word)=>sum+freq[word],0)/phrase.length
 
-    }
+    };
 
+
+});
+
+
+const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0);
+const scoreThreshold=avgScore*0.4;
+
+const filteredPhrases=phraseScores.filter(p=>{
+    if(p.wordCount>1) return true;
+    if(p.wordCount>scoreThreshold) return true;
+    if(p.frequency>=2) return true;
+
+    return false;
 })
-
 
 // logic for sorting and selecting top keywords
 
