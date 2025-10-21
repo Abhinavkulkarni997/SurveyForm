@@ -159,231 +159,120 @@
 // module.exports={rakeAnalyzer};
 
 
-// const sw=require('stopword');
+const sw=require('stopword');
 
-// function rakeAnalyzer(text=''){
-//     if(!text || text.trim()===""){
-//         return{keywords:[]};
-//     };
-//      console.log('Original text:',text);
+function rakeAnalyzer(text=''){
+    if(!text || text.trim()===""){
+        return{keywords:[]};
+    };
+     console.log('Original text:',text);
 
-//    const stopwords = new Set(sw.eng);
+   const stopwords = new Set(sw.eng);
 
-//     // normalizing the text to lowercase and split the text into words
-//     const sentences=text.toLowerCase().split(/[.;!?]+/).filter(s=>s.trim().length>0);
-//      console.log('Split Words:',sentences);
-//   const allPhrases=[];
+    // normalizing the text to lowercase and split the text into words
+    const sentences=text.toLowerCase().split(/[.;!?]+/).filter(s=>s.trim().length>0);
+     console.log('Split Words:',sentences);
+  const allPhrases=[];
 
-//     for(const sentence of sentences){
-//        const words=sentence.split(/[\s,()]+/).map(w=>w.trim()).filter(w=>w.trim()!='');
-//             let currentPhrase=[];
-//             for(const word of words){
-//                 if(stopwords.has(word)){
-//                     if(currentPhrase.length>0){
-//                         allPhrases.push([...currentPhrase]);
-//                         currentPhrase=[];
-//                     }
-//                 }else{
-//                     currentPhrase.push(word);
-//                 }
-//             }
-//             if(currentPhrase.length>0){
-//                 allPhrases.push([...currentPhrase])
-//             }
-// }
-// console.log('All phrases:',allPhrases);
-
-// // filtering all valid phrases 
-// const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
-// if(validPhrases.length===0){
-//     return{keywords:[]};
-// }
-
-// // calculation of freq and degree of words
-// const freq={};
-// const degree={};
-// for(const phrase of validPhrases){
-//     for(const word of phrase){
-//         freq[word]=(freq[word]||0)+1;
-//         degree[word]=(degree[word]||0)+(phrase.length);  
-//     }
-// }
-// console.log('Frequency:',freq);
-// console.log('Degree:',degree);
-
-// // calculation of  word scores
-// const wordScores={};
-// for(const word in freq){
-//     wordScores[word]=(degree[word])/freq[word];
-// }
-// console.log('Word Scores:',wordScores)
-// // Calculate phrase scores
-// const phraseScores=validPhrases.map(phrase=>{
-//    const  phraseText=phrase.join(' ');
-//     const baseScore=phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0);
-
-//     const lengthBonus=phrase.length>1 ? Math.pow(phrase.length,1.5):0;
-
-//     return{
-//         phrase:phraseText,
-//         score:baseScore+lengthBonus,
-//         wordCount:phrase.length,
-//         frequency:phrase.reduce((sum,word)=>sum+freq[word],0)/phrase.length
-
-//     };
-
-
-// });
-
-
-// const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0);
-// const scoreThreshold=avgScore*0.4;
-
-// const filteredPhrases=phraseScores.filter(p=>{
-//     if(p.wordCount>1) return true;
-//     if(p.wordCount>scoreThreshold) return true;
-//     if(p.frequency>=2) return true;
-
-//     return false;
-// })
-
-// // logic for sorting and selecting top keywords
-
-// filteredPhrases.sort((a,b)=>
-// {
-// if (Math.abs( b.score-a.score) <0.1){
-//     return b.wordCount-a.wordCount;
-
-// }
-// return b.score- a.score;
-
-// });
-
-// // let keywords=phraseScores;
-// const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
-// const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
-
-// let finalKeywords=[];
-// const targetMultiWord=Math.ceil(10*0.7);
-
-// finalKeywords=[
-//     ...multiWordPhrases.slice(0,targetMultiWord),
-//     ...singleWordPhrases.slice(0,10-targetMultiWord)
-// ].sort((a,b)=>b.score-a.score);
-
-//     return {keywords:finalKeywords.slice(0,10).map(p=>p.phrase)};
-// }
-
-// module.exports={rakeAnalyzer};
-
-
-const sw = require('stopword');
-
-function rakeAnalyzer(text = '') {
-    if (!text || text.trim() === "") {
-        return { keywords: [] };
-    }
-
-    // CONSISTENT STOPWORDS - Use a fixed set
-    const consistentStopwords = new Set([
-        'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 
-        'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', 
-        'her', 'hers', 'herself', 'it', 'its', 'itself', 'they', 'them', 'their', 
-        'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', 
-        'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 
-        'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 
-        'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 
-        'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 
-        'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 
-        'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 
-        'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 
-        'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 
-        'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'can', 
-        'will', 'just', 'should', 'now', 'also', 'like', 'get', 'very'
-    ]);
-
-    // CONSISTENT TEXT CLEANING
-    const cleanText = text.toLowerCase()
-        .replace(/[^a-z\s]/g, ' ')  // Replace all non-letters with spaces
-        .replace(/\s+/g, ' ')        // Collapse multiple spaces
-        .trim();
-
-    console.log('Cleaned text:', cleanText);
-
-    // CONSISTENT SENTENCE SPLITTING
-    const sentences = cleanText.split(/[.!?]/).filter(s => s.trim().length > 0);
-    
-    const allPhrases = [];
-
-    // CONSISTENT PHRASE EXTRACTION
-    for (const sentence of sentences) {
-        const words = sentence.trim().split(/\s+/).filter(w => w.length > 0);
-        let currentPhrase = [];
-        
-        for (const word of words) {
-            if (consistentStopwords.has(word)) {
-                if (currentPhrase.length >= 1) {
-                    allPhrases.push([...currentPhrase]);
+    for(const sentence of sentences){
+       const words=sentence.split(/[\s,()]+/).map(w=>w.trim()).filter(w=>w.trim()!='');
+            let currentPhrase=[];
+            for(const word of words){
+                if(stopwords.has(word)){
+                    if(currentPhrase.length>0){
+                        allPhrases.push([...currentPhrase]);
+                        currentPhrase=[];
+                    }
+                }else{
+                    currentPhrase.push(word);
                 }
-                currentPhrase = [];
-            } else {
-                currentPhrase.push(word);
             }
-        }
-        if (currentPhrase.length >= 1) {
-            allPhrases.push([...currentPhrase]);
-        }
+            if(currentPhrase.length>0){
+                allPhrases.push([...currentPhrase])
+            }
+}
+console.log('All phrases:',allPhrases);
+
+// filtering all valid phrases 
+const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
+if(validPhrases.length===0){
+    return{keywords:[]};
+}
+
+// calculation of freq and degree of words
+const freq={};
+const degree={};
+for(const phrase of validPhrases){
+    for(const word of phrase){
+        freq[word]=(freq[word]||0)+1;
+        degree[word]=(degree[word]||0)+(phrase.length);  
     }
+}
+console.log('Frequency:',freq);
+console.log('Degree:',degree);
 
-    console.log('All phrases:', allPhrases.map(p => p.join(' ')));
+// calculation of  word scores
+const wordScores={};
+for(const word in freq){
+    wordScores[word]=(degree[word])/freq[word];
+}
+console.log('Word Scores:',wordScores)
+// Calculate phrase scores
+const phraseScores=validPhrases.map(phrase=>{
+   const  phraseText=phrase.join(' ');
+    const baseScore=phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0);
 
-    // Filter only meaningful phrases (at least 2 words)
-    const meaningfulPhrases = allPhrases.filter(phrase => phrase.length >= 2);
-    
-    if (meaningfulPhrases.length === 0) {
-        return { keywords: [] };
-    }
+    const lengthBonus=phrase.length>1 ? Math.pow(phrase.length,1.5):0;
 
-    // CONSISTENT SCORING (Basic RAKE algorithm)
-    const freq = {};
-    const degree = {};
+    return{
+        phrase:phraseText,
+        score:baseScore+lengthBonus,
+        wordCount:phrase.length,
+        frequency:phrase.reduce((sum,word)=>sum+freq[word],0)/phrase.length
 
-    // Calculate word frequencies
-    for (const phrase of meaningfulPhrases) {
-        for (const word of phrase) {
-            freq[word] = (freq[word] || 0) + 1;
-        }
-    }
+    };
 
-    // Calculate word degrees
-    for (const phrase of meaningfulPhrases) {
-        for (const word of phrase) {
-            degree[word] = (degree[word] || 0) + phrase.length;
-        }
-    }
 
-    // Calculate word scores
-    const wordScores = {};
-    for (const word in freq) {
-        wordScores[word] = degree[word] / freq[word];
-    }
+});
 
-    // Score phrases (SIMPLE VERSION - no extra bonuses)
-    const phraseScores = meaningfulPhrases.map(phrase => ({
-        phrase: phrase.join(' '),
-        score: phrase.reduce((sum, word) => sum + (wordScores[word] || 0), 0),
-        wordCount: phrase.length
-    }));
 
-    // CONSISTENT SORTING - only by score
-    phraseScores.sort((a, b) => b.score - a.score);
+const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0);
+const scoreThreshold=avgScore*0.4;
 
-    // Take top 10
-    const keywords = phraseScores.slice(0, 10).map(p => p.phrase);
+const filteredPhrases=phraseScores.filter(p=>{
+    if(p.wordCount>1) return true;
+    if(p.wordCount>scoreThreshold) return true;
+    if(p.frequency>=2) return true;
 
-    console.log('Final keywords:', keywords);
-    
-    return { keywords };
+    return false;
+})
+
+// logic for sorting and selecting top keywords
+
+filteredPhrases.sort((a,b)=>
+{
+if (Math.abs( b.score-a.score) <0.1){
+    return b.wordCount-a.wordCount;
+
+}
+return b.score- a.score;
+
+});
+
+// let keywords=phraseScores;
+const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
+const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
+
+let finalKeywords=[];
+const targetMultiWord=Math.ceil(10*0.7);
+
+finalKeywords=[
+    ...multiWordPhrases.slice(0,targetMultiWord),
+    ...singleWordPhrases.slice(0,10-targetMultiWord)
+].sort((a,b)=>b.score-a.score);
+
+    return {keywords:finalKeywords.slice(0,10).map(p=>p.phrase)};
 }
 
 module.exports={rakeAnalyzer};
+
