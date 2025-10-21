@@ -236,12 +236,12 @@ const phraseScores=validPhrases.map(phrase=>{
 });
 
 
-const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0);
+const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0)/phraseScores.length;
 const scoreThreshold=avgScore*0.4;
 
 const filteredPhrases=phraseScores.filter(p=>{
     if(p.wordCount>1) return true;
-    if(p.wordCount>scoreThreshold) return true;
+    if(p.score>scoreThreshold) return true;
     if(p.frequency>=2) return true;
 
     return false;
@@ -260,8 +260,8 @@ return b.score- a.score;
 });
 
 // let keywords=phraseScores;
-const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
-const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
+const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
+const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
 
 let finalKeywords=[];
 const targetMultiWord=Math.ceil(10*0.7);
