@@ -159,124 +159,6 @@
 // module.exports={rakeAnalyzer};
 
 
-// const sw=require('stopword');
-
-// function rakeAnalyzer(text=''){
-//     if(!text || text.trim()===""){
-//         return{keywords:[]};
-//     };
-//      console.log('Original text:',text);
-
-//    const stopwords = new Set(sw.eng);
-
-//     // normalizing the text to lowercase and split the text into words
-//     const sentences=text.toLowerCase().split(/[.;!?]+/).filter(s=>s.trim().length>0);
-//      console.log('Split Words:',sentences);
-//   const allPhrases=[];
-
-//     for(const sentence of sentences){
-//        const words=sentence.split(/[\s,()]+/).map(w=>w.trim()).filter(w=>w.trim()!='');
-//             let currentPhrase=[];
-//             for(const word of words){
-//                 if(stopwords.has(word)){
-//                     if(currentPhrase.length>0){
-//                         allPhrases.push([...currentPhrase]);
-//                         currentPhrase=[];
-//                     }
-//                 }else{
-//                     currentPhrase.push(word);
-//                 }
-//             }
-//             if(currentPhrase.length>0){
-//                 allPhrases.push([...currentPhrase])
-//             }
-// }
-// console.log('All phrases:',allPhrases);
-
-// // filtering all valid phrases 
-// const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
-// if(validPhrases.length===0){
-//     return{keywords:[]};
-// }
-
-// // calculation of freq and degree of words
-// const freq={};
-// const degree={};
-// for(const phrase of validPhrases){
-//     for(const word of phrase){
-//         freq[word]=(freq[word]||0)+1;
-//         degree[word]=(degree[word]||0)+(phrase.length);  
-//     }
-// }
-// console.log('Frequency:',freq);
-// console.log('Degree:',degree);
-
-// // calculation of  word scores
-// const wordScores={};
-// for(const word in freq){
-//     wordScores[word]=(degree[word])/freq[word];
-// }
-// console.log('Word Scores:',wordScores)
-// // Calculate phrase scores
-// const phraseScores=validPhrases.map(phrase=>{
-//    const  phraseText=phrase.join(' ');
-//     const baseScore=phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0);
-
-//     const lengthBonus=phrase.length>1 ? Math.pow(phrase.length,1.5):0;
-
-//     return{
-//         phrase:phraseText,
-//         score:baseScore+lengthBonus,
-//         wordCount:phrase.length,
-//         frequency:phrase.reduce((sum,word)=>sum+freq[word],0)/phrase.length
-
-//     };
-
-
-// });
-
-
-// const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0)/phraseScores.length;
-// const scoreThreshold=avgScore*0.4;
-
-// const filteredPhrases=phraseScores.filter(p=>{
-//     if(p.wordCount>1) return true;
-//     if(p.score>scoreThreshold) return true;
-//     if(p.frequency>=2) return true;
-
-//     return false;
-// })
-
-// // logic for sorting and selecting top keywords
-
-// filteredPhrases.sort((a,b)=>
-// {
-// if (Math.abs( b.score-a.score) <0.1){
-//     return b.wordCount-a.wordCount;
-
-// }
-// return b.score- a.score;
-
-// });
-
-// // let keywords=phraseScores;
-// const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
-// const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
-
-// let finalKeywords=[];
-// const targetMultiWord=Math.ceil(10*0.7);
-
-// finalKeywords=[
-//     ...multiWordPhrases.slice(0,targetMultiWord),
-//     ...singleWordPhrases.slice(0,10-targetMultiWord)
-// ].sort((a,b)=>b.score-a.score);
-
-//     return {keywords:finalKeywords.slice(0,10).map(p=>p.phrase)};
-// }
-
-// module.exports={rakeAnalyzer};
-
-
 const sw=require('stopword');
 
 function rakeAnalyzer(text=''){
@@ -285,16 +167,15 @@ function rakeAnalyzer(text=''){
     };
      console.log('Original text:',text);
 
-     const stopwords=new Set(sw.eng)
-const cleanText=text.toLowerCase().replace(/[^a-z\s]/g,'').replace(/\s+/g,'').trim();
-    // normalize text to lowercase and split into words
-    const sentences=cleanText.split(/[.;!?]+/).filter(s=>s.trim().length>0);
+   const stopwords = new Set(sw.eng);
+
+    // normalizing the text to lowercase and split the text into words
+    const sentences=text.toLowerCase().split(/[.;!?]+/).filter(s=>s.trim().length>0);
      console.log('Split Words:',sentences);
   const allPhrases=[];
-  const candidateSingleWords=new Set();
 
     for(const sentence of sentences){
-       const words=sentence.trim().split(/\s+/).filter(w=>w.length>0);
+       const words=sentence.split(/[\s,()]+/).map(w=>w.trim()).filter(w=>w.trim()!='');
             let currentPhrase=[];
             for(const word of words){
                 if(stopwords.has(word)){
@@ -304,7 +185,6 @@ const cleanText=text.toLowerCase().replace(/[^a-z\s]/g,'').replace(/\s+/g,'').tr
                     }
                 }else{
                     currentPhrase.push(word);
-                    candidateSingleWords.add(word);
                 }
             }
             if(currentPhrase.length>0){
@@ -314,25 +194,20 @@ const cleanText=text.toLowerCase().replace(/[^a-z\s]/g,'').replace(/\s+/g,'').tr
 console.log('All phrases:',allPhrases);
 
 // filtering all valid phrases 
-const validPhrases=allPhrases.filter(phrase=>phrase.length>=2);
+const validPhrases=allPhrases.filter(phrase=>phrase.length>=1);
 if(validPhrases.length===0){
-    return{keywords:Array.from(candidateSingleWords).slice(0,10)};
+    return{keywords:[]};
 }
+
+// calculation of freq and degree of words
 const freq={};
 const degree={};
 for(const phrase of validPhrases){
     for(const word of phrase){
         freq[word]=(freq[word]||0)+1;
-       
+        degree[word]=(degree[word]||0)+(phrase.length);  
     }
-    
 }
-
-for(const phrase of validPhrases){
-    for(const word of phrase){
-        degree[word]=(degree[word]||0)+(phrase.length);
-    }
-    }
 console.log('Frequency:',freq);
 console.log('Degree:',degree);
 
@@ -343,32 +218,62 @@ for(const word in freq){
 }
 console.log('Word Scores:',wordScores)
 // Calculate phrase scores
-const phraseScores=validPhrases.map(phrase=>({
-    phrase:phrase.join(' '),
-    score:phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0),
-    wordCount:phrase.length
-}))
-console.log('PhraseScores:',phraseScores);
+const phraseScores=validPhrases.map(phrase=>{
+   const  phraseText=phrase.join(' ');
+    const baseScore=phrase.reduce((sum,word)=>sum+(wordScores[word]||0),0);
+
+    const lengthBonus=phrase.length>1 ? Math.pow(phrase.length,1.5):0;
+
+    return{
+        phrase:phraseText,
+        score:baseScore+lengthBonus,
+        wordCount:phrase.length,
+        frequency:phrase.reduce((sum,word)=>sum+freq[word],0)/phrase.length
+
+    };
+
+
+});
+
+
+const avgScore=phraseScores.reduce((sum,p)=>sum+p.score,0)/phraseScores.length;
+const scoreThreshold=avgScore*0.4;
+
+const filteredPhrases=phraseScores.filter(p=>{
+    if(p.wordCount>1) return true;
+    if(p.score>scoreThreshold) return true;
+    if(p.frequency>=2) return true;
+
+    return false;
+})
 
 // logic for sorting and selecting top keywords
 
-phraseScores.sort((a,b)=>b.score-a.score);
-const topPhrases=phraseScores.slice(0,7).map(p=>p.phrase);
+filteredPhrases.sort((a,b)=>
+{
+if (Math.abs( b.score-a.score) <0.1){
+    return b.wordCount-a.wordCount;
 
-const singleWordArray=Array.from(candidateSingleWords);
-const singleWordScores=singleWordArray.map(word=>{
-    let score=0;
+}
+return b.score- a.score;
 
-    if(wordScores[word]){
-        score+=wordScores[word];
-    }
-    score +=Math.min(word.length/10,0.5);
-    const inTopPhrase=topPhrases.some(phrase=>phrase.includes(word));
-    if(inTopPhrase){
-        score*=0.3;
-    }
-})
-    return {keywords};
+});
+
+// let keywords=phraseScores;
+const multiWordPhrases=filteredPhrases.filter(p=>p.wordCount>1);
+const singleWordPhrases=filteredPhrases.filter(p=>p.wordCount===1);
+
+let finalKeywords=[];
+const targetMultiWord=Math.ceil(10*0.7);
+
+finalKeywords=[
+    ...multiWordPhrases.slice(0,targetMultiWord),
+    ...singleWordPhrases.slice(0,10-targetMultiWord)
+].sort((a,b)=>b.score-a.score);
+
+    return {keywords:finalKeywords.slice(0,10).map(p=>p.phrase)};
 }
 
 module.exports={rakeAnalyzer};
+
+
