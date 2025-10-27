@@ -18,4 +18,6 @@ const surveySchema=new Schema({
   
 },{timestamps:true});
 
+surveySchema.index({MobileNumber:1},{unique:true})
+
 module.exports=mongoose.model('surveySchema',surveySchema);

@@ -37,4 +37,13 @@ router.get('/',async(req,res)=>{
     }
 })
 
+router.get('/phonenumber',async(req,res)=>{
+    try{
+        res.json
+    }catch(error){
+        console.log('Phone Number already exists',error);
+        res.status(400).json({error:"Duplicate Phone Number this number already exits",details:error.message})
+    }
+})
+
 module.exports= router;
