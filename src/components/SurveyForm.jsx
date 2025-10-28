@@ -97,6 +97,18 @@ const mobileNumberValidation=(MobileNumber)=>{
    return  mobileRegex.test(MobileNumber);
 }
 
+useEffect(()=>{
+  axios.get('/check-mobilenumber').then((response=>{
+    console.log(response.data);
+})
+  ).catch(err=>{
+    console.log(err);
+  }
+
+  )
+})
+
+
 
 const handleSubmit=(e)=>{
   e.preventDefault();
