@@ -98,10 +98,10 @@ const mobileNumberValidation=(MobileNumber)=>{
 }
 
 useEffect(()=>{
-  axios.get('/check-mobilenumber').then((response=>{
+  axios.get(`http://localhost:5000/check-number/${mobile}`).then((response=>{
     console.log(response.data);
 })
-  ).catch(err=>{
+  ).catch(err=>{ 
     console.log(err);
   }
 
