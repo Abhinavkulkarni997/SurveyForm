@@ -37,12 +37,17 @@ router.get('/',async(req,res)=>{
     }
 })
 
-router.get('/phonenumber',async(req,res)=>{
+router.get('/check-mobilenumber/:mobilenumber',async(req,res)=>{
     try{
-        res.json
+        const mobilenumber=req.body.mobilenumber;
+        if(/^\d{10}$/.test(mobilenumber)){
+            res.status(400).json({exists:false,valid:false,error:'Invalid Phone Format'})
+        }
+        const mobexists=await survey.exists({MobileNumber:mobilenumber});
+        return res.json({exists:!!exists,valid:true,message:exists? "This Phone Number is already registered":"Phone number is available"})
     }catch(error){
-        console.log('Phone Number already exists',error);
-        res.status(400).json({error:"Duplicate Phone Number this number already exits",details:error.message})
+        console.log('Phone Number  error',error);
+        res.status(500).json({exists:false,valid:false,message:'server error'})
     }
 })
 
