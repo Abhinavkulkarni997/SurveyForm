@@ -39,12 +39,12 @@ router.get('/',async(req,res)=>{
 
 router.get('/check-number/:mobile',async(req,res)=>{
     try{
-        const mobile=req.body.mobile;
-        if(/^\d{10}$/.test(mobile)){
+        const {mobile}=req.params;
+        if(!/^\d{10}$/.test(mobile)){
             res.status(400).json({exists:false,valid:false,error:'Invalid Phone Format'})
         }
         const mobexists=await survey.exists({MobileNumber:mobile});
-        return res.json({exists:!!exists,valid:true,message:exists? "This Phone Number is already registered":"Phone number is available"})
+        return res.json({exists:!!mobexists,valid:true,message:mobexists? "This Phone Number is already registered":"Phone number is available"})
     }catch(error){
         console.log('Phone Number  error',error);
         res.status(500).json({exists:false,valid:false,message:'server error'})

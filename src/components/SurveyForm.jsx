@@ -86,7 +86,7 @@ const SurveyForm = () => {
   const [messageHistory,setMessagesHistory]=useState([]);
   const [errorMessage,setErrorMessage]=useState('');
   const [isTyping,setIsTyping]=useState(false);
-  
+  const[mobile,setMobile]=useState('');
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -98,15 +98,15 @@ const mobileNumberValidation=(MobileNumber)=>{
 }
 
 useEffect(()=>{
-  axios.get(`http://localhost:5000/check-number/${mobile}`).then((response=>{
+  if(mobile.length===10){
+  axios.get(`http://localhost:5000/api/surveys/check-number/${mobile}`).then((response=>{
     console.log(response.data);
 })
   ).catch(err=>{ 
     console.log(err);
-  }
-
-  )
-})
+  })
+}
+},[mobile])
 
 
 
@@ -133,6 +133,7 @@ const handleSubmit=(e)=>{
   }
   if(currentField==="MobileNumber" && !mobileNumberValidation(value)){
     // alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
+    setMobile(value);
     setMessagesHistory([...messageHistory,
     //   {
     //   question:SurveyData[currentQuestionIndex].question,
