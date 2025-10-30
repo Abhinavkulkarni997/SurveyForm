@@ -86,7 +86,7 @@ const SurveyForm = () => {
   const [messageHistory,setMessagesHistory]=useState([]);
   const [errorMessage,setErrorMessage]=useState('');
   const [isTyping,setIsTyping]=useState(false);
-  const[mobile,setMobile]=useState('');
+  // const[mobile,setMobile]=useState('');
 const emailValidation=(email)=>{
     const emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -97,27 +97,30 @@ const mobileNumberValidation=(MobileNumber)=>{
    return  mobileRegex.test(MobileNumber);
 }
 
-useEffect(()=>{
-  if(mobile.length===10){
-  axios.get(`http://localhost:5000/api/surveys/check-number/${mobile}`).then((response=>{
-    console.log(response.data);
-})
-  ).catch(err=>{ 
-    console.log(err);
-  })
-}
-},[mobile])
+// useEffect(()=>{
+//   if(mobile.length===10){
+//   axios.get(`http://localhost:5000/api/surveys/check-number/${mobile}`).then((response=>{
+//     console.log(response.data);
+// })
+//   ).catch(err=>{ 
+//     console.log(err);
+//   })
+// }
+// },[mobile])
 
 
 
-const handleSubmit=(e)=>{
+const handleSubmit=async (e)=>{
   e.preventDefault();
   
   const value=e.target.userInput.value.trim();
   if(!value) return;
   e.target.userInput.value="";
   const currentField=SurveyData[currentQuestionIndex].field;
-  if(currentField==="Email" && !emailValidation(value)){
+
+
+  if(currentField==="Email" ){
+    if( !emailValidation(value)){
     // alert("email is Invalid Please enter a valid Email")
     setMessagesHistory([...messageHistory,
     //   {
@@ -131,9 +134,26 @@ const handleSubmit=(e)=>{
     }]);
     return; 
   }
-  if(currentField==="MobileNumber" && !mobileNumberValidation(value)){
+  try{
+    const response=await(`http://localhost:5000/api/surveys/check-email/${value}`);
+    if(response.data.exists){
+      setMessagesHistory([...messageHistory,
+        {
+          question:"This Email is already registered. Please use a different one",
+          answer:'',
+          isError:true
+        }
+      ])
+      return;
+    }
+  }catch(err){
+    console.log(err)
+  }
+}
+  if(currentField==="MobileNumber"){
+     if( !mobileNumberValidation(value)){
     // alert("Mobile Number is Invalid and Please enter a valid Mobile Number");
-    setMobile(value);
+    // setMobile(value);
     setMessagesHistory([...messageHistory,
     //   {
     //   question:SurveyData[currentQuestionIndex].question,
@@ -147,6 +167,33 @@ const handleSubmit=(e)=>{
     // setErrorMessage("That Doesn't look like a valid Mobile Number.Please enter a valid Mobile Number");
     return;
   }
+  try{
+     const response=await axios.get(`http://localhost:5000/api/surveys/check-number/${value}`);
+     if(response.data.exists){
+       setMessagesHistory([
+        ...messageHistory,
+    {
+      question:"The mobile number is already Registered.Please use a different one",
+      answer:"",
+      isError:true,
+    }])
+    return;
+
+     }
+  }catch(err){
+    console.log("Error in checking Phone Number",err);
+    setMessagesHistory([...messageHistory,
+      {
+        question:"Server error while checking the mobile number. Please try again",
+        answer:'',
+        isError:true
+      }
+    ]);
+    return;
+  }
+
+}
+ 
 
   const newFormData={...formData,
     //  AnalyzedData:'Pending Analysis',

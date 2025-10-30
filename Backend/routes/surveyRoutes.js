@@ -37,6 +37,23 @@ router.get('/',async(req,res)=>{
     }
 })
 
+
+// duplicate email checking
+router.get('/check-email/:email',async(req,res)=>{
+    try{
+        const {email}=req.params;
+        if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
+            res.status(400).json({exists:false,valid:false,error:'Invalid Email format'})
+        }
+        const emailexists=await survey.exists({Email:email});
+        res.json({exists:!!emailexists,valid:true,message:emailexists?"This email is already registered":"email is available"});
+    }catch(err){
+        console.log("Email error",error);
+        res.status(500).json({exists:false,valid:false,message:'server error'})
+    }
+})
+
+// duplicate mobile number checking 
 router.get('/check-number/:mobile',async(req,res)=>{
     try{
         const {mobile}=req.params;
