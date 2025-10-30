@@ -135,7 +135,7 @@ const handleSubmit=async (e)=>{
     return; 
   }
   try{
-    const response=await(`http://localhost:5000/api/surveys/check-email/${value}`);
+    const response=await axios.get(`http://localhost:5000/api/surveys/check-email/${value}`);
     if(response.data.exists){
       setMessagesHistory([...messageHistory,
         {
