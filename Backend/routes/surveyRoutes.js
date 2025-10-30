@@ -46,9 +46,9 @@ router.get('/check-email/:email',async(req,res)=>{
             res.status(400).json({exists:false,valid:false,error:'Invalid Email format'})
         }
         const emailexists=await survey.exists({Email:email});
-        res.json({exists:!!emailexists,valid:true,message:emailexists?"This email is already registered":"email is available"});
+        res.json({exists:!!emailexists,valid:true,message:emailexists ? "This email is already registered":"Email is available"});
     }catch(err){
-        console.log("Email error",error);
+        console.log("Email error",err);
         res.status(500).json({exists:false,valid:false,message:'server error'})
     }
 })

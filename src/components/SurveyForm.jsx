@@ -147,7 +147,13 @@ const handleSubmit=async (e)=>{
       return;
     }
   }catch(err){
-    console.log(err)
+    console.log("Error in checking email",err);
+    setMessagesHistory([...messageHistory,{
+      question:'Server Error while checking email',
+      answer:'',
+      isError:true
+    }])
+    return;
   }
 }
   if(currentField==="MobileNumber"){
