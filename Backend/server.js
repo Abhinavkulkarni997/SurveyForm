@@ -1,12 +1,13 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const surveyRoutes = require('./routes/surveyRoutes');
-
+const aiRoutes=require('./routes/aiRoutes');
 const app=express();
-dotenv.config();
+// dotenv.config();
 process.env.MONGODB_URL='mongodb://localhost:27017/surveyDB';
 
 // middleware 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // routes
 app.use('/api/surveys', surveyRoutes);
+app.use('/api/ai',aiRoutes);
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL, {
     bufferCommands:3000,
