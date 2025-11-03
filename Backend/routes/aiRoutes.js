@@ -3,7 +3,7 @@ const {HfInference}=require('@huggingface/inference');
 const router=express.Router();
 
 const hf=new HfInference(process.env.HF_TOKEN)
-console.log("HF Token:", process.env.HF_TOKEN ? "Loaded ✅" : "Missing ❌");
+console.log("HF Token:", process.env.HF_TOKEN ? "Loaded " : "Missing ");
 
 router.post('/summarizer',async(req,res)=>{
     try{
