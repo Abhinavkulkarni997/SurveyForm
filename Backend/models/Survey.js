@@ -14,7 +14,8 @@ const surveySchema=new Schema({
     AreaOfInterest:{type:[String],required:true},
     Description:{type:String,required:true},
     WinkAnalyzedData:{type:[String],default:[],required:false},
-    RakeAnalyzedData:{type:[String],default:[],required:false}
+    RakeAnalyzedData:{type:[String],default:[],required:false},
+    GenAiSummaryData:{type:String,default:"",required:false}
   
 },{timestamps:true});
 

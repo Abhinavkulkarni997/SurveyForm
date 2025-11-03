@@ -11,8 +11,23 @@ router.post('/',async(req,res)=>{
         const {keywords:winkKeywords}=payload.Description ? analyzeDescription(payload.Description) :{ keywords:[]};
         const {keywords:rakeKeywords}=payload.Description?rakeAnalyzer(payload.Description):{ keywords:[]};
 
+        // gen ai summary
+        let summarytext='';
+        if(payload.Description){
+            try{
+                const response=await axios.post('http://localhost:5000/api/ai/summarizer',{
+                    Description:payload.Description
+                });
+                summarytext=
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+
         payload.WinkAnalyzedData=winkKeywords;
         payload.RakeAnalyzedData=rakeKeywords;
+        payload.genaisummary=p
         const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
