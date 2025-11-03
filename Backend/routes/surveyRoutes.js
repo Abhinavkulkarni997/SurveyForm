@@ -18,7 +18,7 @@ router.post('/',async(req,res)=>{
                 const response=await axios.post('http://localhost:5000/api/ai/summarizer',{
                     Description:payload.Description
                 });
-                summarytext=
+                summarytext=response.data.Description;
             }catch(err){
                 console.log(err)
             }
@@ -27,7 +27,7 @@ router.post('/',async(req,res)=>{
 
         payload.WinkAnalyzedData=winkKeywords;
         payload.RakeAnalyzedData=rakeKeywords;
-        payload.genaisummary=p
+        payload.genaisummary=summarytext;
         const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
