@@ -12,13 +12,13 @@ router.post('/',async(req,res)=>{
         const {keywords:rakeKeywords}=payload.Description?rakeAnalyzer(payload.Description):{ keywords:[]};
 
         // gen ai summary generation from aiRoutes api 
-        let summarytext='';
+        let summaryText='';
         if(payload.Description){
             try{
                 const response=await axios.post('http://localhost:5000/api/ai/summarizer',{
                     Description:payload.Description
                 });
-                summarytext=response.data.Description;
+                summaryText=response.data.Description;
             }catch(err){
                 console.log(err);
             }
@@ -27,7 +27,7 @@ router.post('/',async(req,res)=>{
 
         payload.WinkAnalyzedData=winkKeywords;
         payload.RakeAnalyzedData=rakeKeywords;
-        payload.genaisummary=summarytext;
+        payload.GenAiSummaryData=summaryText;
         const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
