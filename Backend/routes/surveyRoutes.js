@@ -11,7 +11,7 @@ router.post('/',async(req,res)=>{
         const {keywords:winkKeywords}=payload.Description ? analyzeDescription(payload.Description) :{ keywords:[]};
         const {keywords:rakeKeywords}=payload.Description?rakeAnalyzer(payload.Description):{ keywords:[]};
 
-        // gen ai summary
+        // gen ai summary generation from aiRoutes api 
         let summarytext='';
         if(payload.Description){
             try{
@@ -20,7 +20,7 @@ router.post('/',async(req,res)=>{
                 });
                 summarytext=response.data.Description;
             }catch(err){
-                console.log(err)
+                console.log(err);
             }
 
         }
