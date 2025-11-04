@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 // const dotenv = require('dotenv');
 const surveyRoutes = require('./routes/surveyRoutes');
 const aiRoutes=require('./routes/aiRoutes');
+const aiKeywordRoutes=require('./routes/aiKeywordRoutes')
 const app=express();
 // dotenv.config();
 process.env.MONGODB_URL='mongodb://localhost:27017/surveyDB';
@@ -17,6 +18,7 @@ app.use(express.json());
 // routes
 app.use('/api/surveys', surveyRoutes);
 app.use('/api/ai',aiRoutes);
+app.use('/api/ai',aiKeywordRoutes);
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL, {
     bufferCommands:3000,

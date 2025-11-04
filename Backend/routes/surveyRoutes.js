@@ -1,5 +1,6 @@
 const express = require('express');
 const survey =require('../models/Survey');
+const axios = require('axios');
 const {analyzeDescription}=require('../utils/analyzeDescription');
 const {rakeAnalyzer}=require('../utils/rakeAnalyzer');
 
@@ -16,22 +17,29 @@ router.post('/',async(req,res)=>{
         if(payload.Description){
             try{
                 const response=await axios.post('http://localhost:5000/api/ai/summarizer',{
-                    Description:payload.Description
+                    description:payload.Description
                 });
-                summaryText=response.data.Description;
+                 console.log(response.data); //   for debugging
+                summaryText=response.data.summary || 'No Summary Returned';
+                console.log(summaryText);
             }catch(err){
-                console.log(err);
+                console.log("Hugging Face APi Error:",err);
             }
 
         }
 
+        // storing winkAnalyzedData in db
         payload.WinkAnalyzedData=winkKeywords;
+        // storing rake analyzed data in db
         payload.RakeAnalyzedData=rakeKeywords;
+        // storing genai  summary in db
         payload.GenAiSummaryData=summaryText;
         const surveyData=new survey(payload);
         await surveyData.save();
         console.log('Data saved Successfully',surveyData);
-    res.json({message:'Survey response submitted successfully',analysis:{wink:winkKeywords,rake:rakeKeywords}});
+    res.json({message:'Survey response submitted successfully',analysis:{wink:winkKeywords,rake:rakeKeywords,
+        GenAiSummaryData:summaryText
+    }});
 
     }catch(error){
         console.log('error in saving to DB',error);

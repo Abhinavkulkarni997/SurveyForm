@@ -42,6 +42,7 @@ const StudentsData = () => {
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Analyzed with winkNLP</th>
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Analyzed with RAKE</th>
                 <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Analyzed with GenAI</th>
+                <th className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap'>Student Data Keywords Analyzed with GenAI</th>
             </tr>
               
             </thead>
@@ -60,7 +61,8 @@ const StudentsData = () => {
                     <td className='border border-gray-400 px-2  sm:px-3 md:px-4  py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.Description}</td>
                     <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.WinkAnalyzedData.join(', ')}</td>
                     <td className='border border-gray-400 px-2  sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.RakeAnalyzedData.join(', ')}</td>
-                    <td className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'></td>
+                    <td className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.GenAiSummaryData}</td>
+                    <td className='border border-gray-400 px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm md:text-base max-w-xs lg:max-w-sm break-words'>{student.enAiKeywordData}</td>
                     </tr>
                 ))}
             </tbody>
