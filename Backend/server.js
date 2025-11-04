@@ -19,6 +19,7 @@ app.use(express.json());
 app.use('/api/surveys', surveyRoutes);
 app.use('/api/ai',aiRoutes);
 app.use('/api/ai',aiKeywordRoutes);
+console.log(" Routes registered: /api/surveys, /api/ai/summarizer, /api/ai/keywords");
 // Mongodb connection
 mongoose.connect(process.env.MONGODB_URL, {
     bufferCommands:3000,

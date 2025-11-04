@@ -5,6 +5,7 @@ const router=express.Router();
 const hf=new HfInference(process.env.HF_TOKEN)
 console.log("HF Token:", process.env.HF_TOKEN ? "Loaded " : "Missing ");
 
+
 router.post('/summarizer',async(req,res)=>{
     try{
         const {description}=req.body;
