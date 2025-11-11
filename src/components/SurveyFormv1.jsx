@@ -277,7 +277,7 @@ useEffect(()=>{
   return (
     <section className='min-h-screen py-4 sm:py-8 md:py-12 px-2 sm:px-4 md:px-6 lg:px-8 '>
      <div className='max-w-7xl mx-auto '>
-      <div className='w-full max-w-2xl   mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden p-2 sm:p-4 md:p-5'>
+      <div className='w-full max-w-2xl   mx-auto bg-white border border-gray-200  rounded-xl shadow-lg overflow-hidden p-4 sm:p-5 md:p-5'>
    <div className='flex flex-col sm:flex-row items-center justify-center bg-indigo-500 rounded-lg mx-auto   p-3 sm:p-6'>
       <img src={Survey} alt="Survey" className='w-6 h-6 sm:w-8 sm:h-8 bg-white  rounded-md mb-2 sm:mb-0 sm:mr-2' />
       <h1 className='p-2 sm:p-2 text-white text-center font-bold text-lg sm:text-2xl md:text-3xl'> Student Survey Form </h1>
