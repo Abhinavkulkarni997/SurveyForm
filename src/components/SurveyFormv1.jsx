@@ -289,13 +289,13 @@ useEffect(()=>{
           <div key={index} >
           {chat.isComplete?(
             <div className='w-full flex flex-row items-start gap-2 '>
-            <img src={Robot} alt="Robot" className='flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 mr-2 ' />
-            <div className='bg-green-100  text-left p-2 rounded-lg border-l-4 border-green-500 max-w-md'>{chat.question}</div>
+            <img src={Robot} alt="Robot" className='flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8  mt-1' />
+            <div className='bg-green-100  text-left p-2 rounded-lg border-l-4 border-green-500 flex-1'>{chat.question}</div>
             </div>
           ):(
 
           <>
-          <div className='w-full flex flex-row items-end justify-end gap-2'>
+          <div className='w-full flex flex-row items-end gap-2 mb-2'>
            <img src={Robot} alt="Robot" className='flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 ' />
             <div className={` p-2 sm:p-2 text-sm sm:text-base rounded-lg border-l-4  text-left flex-1 ${
               chat.isError ? 'border-red-500 bg-red-100 text-red-700': 'bg-indigo-200 border-indigo-500 text-gray-900'}`}>
