@@ -12,8 +12,8 @@ function App() {
      
       {/* <SurveyFormBackup/> */}
       <Routes>
-          <Route path='/' element={ <SurveyForm/>}/>
-        {/* <Route path='/' element={ <SurveyFormv1/>}/> */}
+          {/* <Route path='/' element={ <SurveyForm/>}/> */}
+        <Route path='/' element={ <SurveyFormv1/>}/>
 
       <Route path='/admin/studentsData' element={<StudentsData/>}/>
       </Routes>
