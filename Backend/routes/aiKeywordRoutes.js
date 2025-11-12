@@ -6,7 +6,9 @@ const router=express.Router();
 
 const hf=new HfInference(process.env.HF_TOKEN);
 console.log("HF Token:",process.env.HF_TOKEN?'Loaded':'Missing')
-const KEYWORD_MODEL='facebook/bart-large-mnli';
+// const KEYWORD_MODEL='facebook/bart-large-mnli';
+const KEYWORD_MODEL='https://huggingface.co/ml6team/keyphrase-extraction-kbir-inspec';
+
 router.post('/keywords',async(req,res)=>{
 try{
     const {Description}=req.body;

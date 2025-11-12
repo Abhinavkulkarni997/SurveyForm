@@ -11,6 +11,10 @@ router.post('/summarizer',async(req,res)=>{
         const {description}=req.body;
         const result=await hf.summarization({
             model:'facebook/bart-large-cnn',
+            //  model:'philschmid/bart-large-cnn-samsum',
+            // model:'sshleifer/distilbart-cnn-12-6',
+            // model:'Falconsai/text_summarization',
+          
             inputs:description
         });
         res.json({summary:result.summary_text})
