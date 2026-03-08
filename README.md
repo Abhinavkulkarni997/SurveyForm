@@ -1,16 +1,102 @@
-<<<<<<< HEAD
-# React + Vite
+# AI-Powered Student Survey Chatbot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is an AI-powered student survey system designed to collect and analyze student interests in Artificial Intelligence and Machine Learning.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Instead of using a traditional form interface, the application presents questions through a chatbot-style conversational UI to improve engagement and usability.
 
-## Expanding the ESLint configuration
+The system also performs automatic NLP analysis on student responses using multiple AI techniques.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# SurveyForm
->>>>>>> 477addee2212c51f2272899c96fed3ff0aa71cde
+---
+
+## Key Features
+
+### Conversational Survey Interface
+
+* Chatbot-style survey interaction
+* Dynamic question flow
+* Real-time response capture
+
+### AI-Powered Text Analysis
+
+* Keyword extraction using RAKE algorithm
+* Named entity and noun phrase extraction using winkNLP
+* AI text summarization using Hugging Face transformer models
+
+### Data Validation
+
+* Duplicate email detection
+* Duplicate mobile number detection
+* Input validation for survey responses
+
+### Admin Dashboard
+
+* View submitted student responses
+* View extracted keywords
+* View AI-generated summaries
+
+---
+
+## Tech Stack
+
+Frontend
+
+* React.js
+* React Router
+* Axios
+* Tailwind CSS
+
+Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+
+AI / NLP
+
+* Hugging Face Transformers
+* winkNLP
+* RAKE keyword extraction
+
+---
+
+## System Architecture
+
+User Interface (React Chatbot)
+↓
+REST API Layer (Express.js)
+↓
+AI Processing Layer (RAKE + winkNLP + Hugging Face)
+↓
+Database (MongoDB)
+
+---
+
+## Installation
+
+Clone the repository
+
+git clone https://github.com/your-repo
+
+Install dependencies
+
+npm install
+
+Start frontend
+
+npm run dev
+
+Start backend
+
+npm run dev
+
+---
+
+## Future Improvements
+
+* Deploy the system on cloud infrastructure
+* Add authentication for admin dashboard
+* Extend AI analysis with topic modeling
+* Integrate vector search for semantic insights
