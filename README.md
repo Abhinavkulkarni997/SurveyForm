@@ -78,7 +78,7 @@ Database (MongoDB)
 
 Clone the repository
 
-git clone https://github.com/your-repo
+git clone https://github.com/Abhinavkulkarni997/SurveyForm.git
 
 Install dependencies
 
